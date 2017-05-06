@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript web," />
 
 
 
@@ -90,12 +90,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zay&#39;s blog">
-<meta property="og:url" content="http://zay.today/index.html">
+<meta name="description" content="第一章 Introduction模式的含义是对一类问题的解决方案。 几个JS概念 Object-oriented No Classes Prototypes第二章 Essentials可维护的代码   readable consistent predictable looks as if it was written by the same person documented减少全局变量在项目中经">
+<meta name="keywords" content="JavaScript web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript Patterns 总结">
+<meta property="og:url" content="http://zay.today/2017/05/06/JavaScript-Patterns-总结/index.html">
 <meta property="og:site_name" content="Zay&#39;s blog">
+<meta property="og:description" content="第一章 Introduction模式的含义是对一类问题的解决方案。 几个JS概念 Object-oriented No Classes Prototypes第二章 Essentials可维护的代码   readable consistent predictable looks as if it was written by the same person documented减少全局变量在项目中经">
+<meta property="og:updated_time" content="2017-05-06T11:42:32.400Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zay&#39;s blog">
+<meta name="twitter:title" content="JavaScript Patterns 总结">
+<meta name="twitter:description" content="第一章 Introduction模式的含义是对一类问题的解决方案。 几个JS概念 Object-oriented No Classes Prototypes第二章 Essentials可维护的代码   readable consistent predictable looks as if it was written by the same person documented减少全局变量在项目中经">
 
 
 
@@ -123,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zay.today/"/>
+  <link rel="canonical" href="http://zay.today/2017/05/06/JavaScript-Patterns-总结/"/>
 
 
 
 
 
-  <title>Zay's blog</title>
+  <title>JavaScript Patterns 总结 | Zay's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -277,9 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/06/JavaScript-Patterns-总结/" itemprop="url">JavaScript Patterns 总结</a></h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript Patterns 总结</h1>
         
 
         <div class="post-meta">
@@ -326,9 +327,7 @@
       
 
       
-        
-          
-            <h1 id="第一章-Introduction"><a href="#第一章-Introduction" class="headerlink" title="第一章 Introduction"></a>第一章 Introduction</h1><h2 id="模式的含义"><a href="#模式的含义" class="headerlink" title="模式的含义"></a>模式的含义</h2><p>是对一类问题的解决方案。</p>
+        <h1 id="第一章-Introduction"><a href="#第一章-Introduction" class="headerlink" title="第一章 Introduction"></a>第一章 Introduction</h1><h2 id="模式的含义"><a href="#模式的含义" class="headerlink" title="模式的含义"></a>模式的含义</h2><p>是对一类问题的解决方案。</p>
 <h2 id="几个JS概念"><a href="#几个JS概念" class="headerlink" title="几个JS概念"></a>几个JS概念</h2><ul>
 <li>Object-oriented</li>
 <li>No Classes</li>
@@ -419,162 +418,72 @@
 <p>上面的代码先从Sandbox.modules获得各个模块，添加到this中，最后将this作为参数传入callback。下面是使用沙盒模式的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Sandbox(<span class="function"><span class="keyword">function</span>(<span class="params">modules</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"hello world!"</span>);</div><div class="line">    <span class="keyword">var</span> element =modules.dom.getElement();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>在上面的代码中，我们使用了沙盒提供的dom模块。上面是沙盒模式最简单的实现，我们还可以给Sandbox增加一些参数，指示我们要运行的代码实际需要的模块，而非一股脑地传入沙盒具备的所有模块。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/05/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zay">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zay's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/05/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-05T20:11:06+08:00">
-                2017-05-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/JavaScript-web/" rel="tag"># JavaScript web</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/05/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -582,6 +491,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -601,8 +514,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -655,6 +577,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-Introduction"><span class="nav-number">1.</span> <span class="nav-text">第一章 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模式的含义"><span class="nav-number">1.1.</span> <span class="nav-text">模式的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个JS概念"><span class="nav-number">1.2.</span> <span class="nav-text">几个JS概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-Essentials"><span class="nav-number">2.</span> <span class="nav-text">第二章 Essentials</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可维护的代码"><span class="nav-number">2.1.</span> <span class="nav-text">可维护的代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">减少全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明提升"><span class="nav-number">2.3.</span> <span class="nav-text">声明提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环"><span class="nav-number">2.4.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in循环"><span class="nav-number">2.5.</span> <span class="nav-text">for-in循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免eval"><span class="nav-number">2.6.</span> <span class="nav-text">避免eval</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-Object-Literal"><span class="nav-number">3.</span> <span class="nav-text">第三章 Object Literal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Literal的好处"><span class="nav-number">3.1.</span> <span class="nav-text">Literal的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用new调用函数的不同"><span class="nav-number">3.2.</span> <span class="nav-text">使用new调用函数的不同</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-Function"><span class="nav-number">4.</span> <span class="nav-text">第四章 Function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的特点"><span class="nav-number">4.1.</span> <span class="nav-text">函数的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的三种形式"><span class="nav-number">4.2.</span> <span class="nav-text">函数的三种形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">4.3.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较少见的函数用法"><span class="nav-number">4.4.</span> <span class="nav-text">比较少见的函数用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记忆函数模式"><span class="nav-number">4.5.</span> <span class="nav-text">记忆函数模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象传递参数"><span class="nav-number">4.6.</span> <span class="nav-text">对象传递参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#柯里化的简单实现"><span class="nav-number">4.7.</span> <span class="nav-text">柯里化的简单实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章-Object-Creation-Patterns"><span class="nav-number">5.</span> <span class="nav-text">第五章 Object Creation Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">5.1.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现产生命名空间的函数"><span class="nav-number">5.2.</span> <span class="nav-text">实现产生命名空间的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在函数开头声明依赖"><span class="nav-number">5.3.</span> <span class="nav-text">在函数开头声明依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#私有成员"><span class="nav-number">5.4.</span> <span class="nav-text">私有成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态成员"><span class="nav-number">5.5.</span> <span class="nav-text">静态成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沙盒模式"><span class="nav-number">5.6.</span> <span class="nav-text">沙盒模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -768,6 +706,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
