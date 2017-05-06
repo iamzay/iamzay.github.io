@@ -693,9 +693,10 @@
         s.type = 'text/javascript';
         s.src = 'https://zay-today.disqus.com/embed.js';
         s.setAttribute('data-timestamp', '' + +new Date());
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
+         (document.head || document.body).appendChild(s);
+         }());
         $('#load-disqus').remove(); ///加载后移除按钮
+  }
   }
       </script>
     
