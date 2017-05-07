@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Web," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么需要iterator看一段常规的遍历代码：1234var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];for (var i = 0, len = colors.length; i &amp;lt; len; i++) &amp;#123;    console.log(colors[i]);&amp;#125; 使用for循环遍历数组的问题在于需要定义变量来保存遍历的状态，上面的代码就定义了">
+<meta name="keywords" content="JavaScript,Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 Iterators and Generators总结">
+<meta property="og:url" content="http://zay.today/2017/05/07/ES6-Iterators-and-Generators总结/index.html">
+<meta property="og:site_name" content="I am Zay...">
+<meta property="og:description" content="为什么需要iterator看一段常规的遍历代码：1234var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];for (var i = 0, len = colors.length; i &amp;lt; len; i++) &amp;#123;    console.log(colors[i]);&amp;#125; 使用for循环遍历数组的问题在于需要定义变量来保存遍历的状态，上面的代码就定义了">
+<meta property="og:updated_time" content="2017-05-07T12:45:37.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6 Iterators and Generators总结">
+<meta name="twitter:description" content="为什么需要iterator看一段常规的遍历代码：1234var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];for (var i = 0, len = colors.length; i &amp;lt; len; i++) &amp;#123;    console.log(colors[i]);&amp;#125; 使用for循环遍历数组的问题在于需要定义变量来保存遍历的状态，上面的代码就定义了">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zay.today/2017/05/07/ES6-Iterators-and-Generators总结/"/>
+
+
+
+
+
+  <title>ES6 Iterators and Generators总结 | I am Zay...</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Zay...</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/07/ES6-Iterators-and-Generators总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Zay...">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6 Iterators and Generators总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T19:26:26+08:00">
+                2017-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/07/ES6-Iterators-and-Generators总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/07/ES6-Iterators-and-Generators总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="为什么需要iterator"><a href="#为什么需要iterator" class="headerlink" title="为什么需要iterator"></a>为什么需要iterator</h1><p>看一段常规的遍历代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> colors = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = colors.length; i &lt; len; i++) &#123;</div><div class="line">    <span class="built_in">console</span>.log(colors[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用for循环遍历数组的问题在于需要定义变量来保存遍历的状态，上面的代码就定义了i和len。当循环嵌套层次多时，需要定义的变量就更多。</p>
+<h1 id="什么是iterator"><a href="#什么是iterator" class="headerlink" title="什么是iterator"></a>什么是iterator</h1><p>iterator是一种具有用于迭代的特定接口的对象（下面用迭代器作为翻译）。下面是用es5来实现iterator:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// createIterator</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIterator</span>(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> i=<span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">next</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">            <span class="keyword">var</span> done=(i&gt;=items.length);</div><div class="line">            <span class="keyword">var</span> value=!done?items[i++]:<span class="literal">undefined</span>;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                <span class="attr">done</span>:done,</div><div class="line">                <span class="attr">value</span>:value</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> iterator=createIterator([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; value:1,done:false&#125;</span></div></pre></td></tr></table></figure></p>
+<h1 id="什么是Generator"><a href="#什么是Generator" class="headerlink" title="什么是Generator"></a>什么是Generator</h1><p>Generator是返回iterator的函数。下面定义了一个generator:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</div><div class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</div><div class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> iterator=createIterator();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(iterator.next().value());</div></pre></td></tr></table></figure></p>
+<p>generator函数不会一次执行完，每次调用iterator.next，generator函数执行下一个yield语句。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;items.length;++i)&#123;</div><div class="line">        <span class="keyword">yield</span> items[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> iterator = createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// "&#123; value: 1, done: false &#125;"</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// "&#123; value: 2, done: false &#125;"</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// "&#123; value: 3, done: false &#125;"</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// "&#123; value: undefined, done: true &#125;"</span></div><div class="line"></div><div class="line"><span class="comment">// for all further calls</span></div><div class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// "&#123; value: undefined, done: true &#125;"</span></div></pre></td></tr></table></figure></p>
+<p>只能在generator中使用yield，下面的用法造成语法错误:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params">items</span>)</span>&#123; <span class="comment">// syntax error</span></div><div class="line">    items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>))</span>&#123;</div><div class="line">        <span class="keyword">yield</span> item+<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="生成函数表达式"><a href="#生成函数表达式" class="headerlink" title="生成函数表达式"></a>生成函数表达式</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> createIterator=<span class="function"><span class="keyword">function</span> *(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;items.length;++i)&#123;</div><div class="line">        <span class="keyword">yield</span> items[i];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="生成对象方法"><a href="#生成对象方法" class="headerlink" title="生成对象方法"></a>生成对象方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> o=&#123;</div><div class="line"></div><div class="line">    <span class="attr">createIterator</span>:<span class="function"><span class="keyword">function</span> *(<span class="params">items</span>)</span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;items.length;++i)&#123;</div><div class="line">            <span class="keyword">yield</span> items[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>下面是es6的concise写法:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> o=&#123;</div><div class="line">    *createIterator(items)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;items.length;++i)&#123;</div><div class="line">            <span class="keyword">yield</span> items[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h1 id="iterables与for-of"><a href="#iterables与for-of" class="headerlink" title="iterables与for-of"></a>iterables与for-of</h1><h2 id="什么是iterable"><a href="#什么是iterable" class="headerlink" title="什么是iterable"></a>什么是iterable</h2><p>iterable是具有Symbol.iterator属性的对象，这个属性是一个generator函数。只要对象实现了这个属性，就可以使用for-of循环。在es6中，array,set,map,string都默认实现了这个属性，所以它们都是iterable。<br>所有由generator生成的iterator都是iterable。<br>for-of循环自动调用对象iterator的next，并自动获取返回对象的value属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> values=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> num <span class="keyword">of</span> values)&#123;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当只是需要简单地遍历数组或集合时，使用for-of往往比for循环要好，因为无需记录索引。</p>
+<h2 id="获得默认的iterator"><a href="#获得默认的iterator" class="headerlink" title="获得默认的iterator"></a>获得默认的iterator</h2><p>可以通过Symbol.iterator属性获得对象默认的iterator:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> iterator=values[<span class="built_in">Symbol</span>.iterator]();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIterable</span>(<span class="params">object</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> object[<span class="built_in">Symbol</span>.iterator]===<span class="string">"function"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="creating-iterables"><a href="#creating-iterables" class="headerlink" title="creating iterables"></a>creating iterables</h2><p>用户自定义的对象默认不是可迭代的，可以通过定义Symbol.iterator属性来让它变成iterable:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> collection=&#123;</div><div class="line">    <span class="attr">items</span>:[],</div><div class="line">    *[<span class="built_in">Symbol</span>.iterator]()&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> items)&#123;</div><div class="line">            <span class="keyword">yield</span> item;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> x <span class="keyword">of</span> collection)&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意Symbol.iterator必须是一个生成函数，前面要加上<code>*</code>。</p>
+<h1 id="内置的iterators"><a href="#内置的iterators" class="headerlink" title="内置的iterators"></a>内置的iterators</h1><h2 id="collection-iterators"><a href="#collection-iterators" class="headerlink" title="collection iterators"></a>collection iterators</h2><p>es6有三种collection:array,map,set。它们都有三个能返回iterator的函数:entries(),values(),keys()。</p>
+<h3 id="entries"><a href="#entries" class="headerlink" title="entries"></a>entries</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> colors = [ <span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span> ];</div><div class="line"><span class="keyword">let</span> tracking = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1234</span>, <span class="number">5678</span>, <span class="number">9012</span>]);</div><div class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line">data.set(<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>);</div><div class="line">data.set(<span class="string">"format"</span>, <span class="string">"ebook"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> colors.entries()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(entry);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> tracking.entries()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(entry);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> data.entries()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(entry);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>entries()返回的是数组，数组的值，对于数组是索引和值，对于set是值和值，对于map是键和值。<br>上面代码的输出是这样的:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[<span class="number">0</span>, <span class="string">"red"</span>]</div><div class="line">[<span class="number">1</span>, <span class="string">"green"</span>]</div><div class="line">[<span class="number">2</span>, <span class="string">"blue"</span>]</div><div class="line">[<span class="number">1234</span>, <span class="number">1234</span>]</div><div class="line">[<span class="number">5678</span>, <span class="number">5678</span>]</div><div class="line">[<span class="number">9012</span>, <span class="number">9012</span>]</div><div class="line">[<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>]</div><div class="line">[<span class="string">"format"</span>, <span class="string">"ebook"</span>]</div></pre></td></tr></table></figure></p>
+<h3 id="values"><a href="#values" class="headerlink" title="values"></a>values</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> colors = [ <span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span> ];</div><div class="line"><span class="keyword">let</span> tracking = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1234</span>, <span class="number">5678</span>, <span class="number">9012</span>]);</div><div class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line"></div><div class="line">data.set(<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>);</div><div class="line">data.set(<span class="string">"format"</span>, <span class="string">"ebook"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> colors.values()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> tracking.values()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> data.values()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码输出如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">"red"</span></div><div class="line"><span class="string">"green"</span></div><div class="line"><span class="string">"blue"</span></div><div class="line"><span class="number">1234</span></div><div class="line"><span class="number">5678</span></div><div class="line"><span class="number">9012</span></div><div class="line"><span class="string">"Understanding ECMAScript 6"</span></div><div class="line"><span class="string">"ebook"</span></div></pre></td></tr></table></figure></p>
+<h3 id="keys"><a href="#keys" class="headerlink" title="keys"></a>keys</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> colors = [ <span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span> ];</div><div class="line"><span class="keyword">let</span> tracking = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1234</span>, <span class="number">5678</span>, <span class="number">9012</span>]);</div><div class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line"></div><div class="line">data.set(<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>);</div><div class="line">data.set(<span class="string">"format"</span>, <span class="string">"ebook"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> colors.keys()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> tracking.keys()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> data.keys()) &#123;</div><div class="line">    <span class="built_in">console</span>.log(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码输出如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">012</span></div><div class="line"><span class="number">1234</span></div><div class="line"><span class="number">5678</span></div><div class="line"><span class="number">9012</span></div><div class="line"><span class="string">"title"</span></div><div class="line"><span class="string">"format"</span></div></pre></td></tr></table></figure></p>
+<h2 id="collection默认的iterator"><a href="#collection默认的iterator" class="headerlink" title="collection默认的iterator"></a>collection默认的iterator</h2><p>当用于for-of循环时，每个collecton type使用一个默认的iterator。array和set使用values()，map使用entries()。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> colors = [ <span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span> ];</div><div class="line"><span class="keyword">let</span> tracking = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1234</span>, <span class="number">5678</span>, <span class="number">9012</span>]);</div><div class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line"></div><div class="line">data.set(<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>);</div><div class="line">data.set(<span class="string">"format"</span>, <span class="string">"print"</span>);</div><div class="line"></div><div class="line"><span class="comment">// same as using colors.values()</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> colors) &#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line"><span class="comment">// same as using tracking.values()</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> num <span class="keyword">of</span> tracking) &#123;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">&#125;</div><div class="line"><span class="comment">// same as using data.entries()</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> data) &#123;</div><div class="line">    <span class="built_in">console</span>.log(entry);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的输出如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">"red"</span></div><div class="line"><span class="string">"green"</span></div><div class="line"><span class="string">"blue"</span></div><div class="line"><span class="number">1234</span></div><div class="line"><span class="number">5678</span></div><div class="line"><span class="number">9012</span></div><div class="line">[<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>]</div><div class="line">[<span class="string">"format"</span>, <span class="string">"print"</span>]</div></pre></td></tr></table></figure></p>
+<p>week set和week map没有内置的iterator。<br>可以在for-of中使用destructuring:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> data = <span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line">data.set(<span class="string">"title"</span>, <span class="string">"Understanding ECMAScript 6"</span>);</div><div class="line">data.set(<span class="string">"format"</span>, <span class="string">"ebook"</span>);</div><div class="line"></div><div class="line"><span class="comment">// same as using data.entries()</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> data) &#123;</div><div class="line">    <span class="built_in">console</span>.log(key + <span class="string">"="</span> + value);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="string-iterator"><a href="#string-iterator" class="headerlink" title="string iterator"></a>string iterator</h2><p>es5的string可以使用索引，但访问的是code units，当遇到双字节字符时会出错，如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message=<span class="string">"A 𠮷 B"</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i &lt; message.length; i++) &#123;</div><div class="line">    <span class="built_in">console</span>.log(message[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">A</div><div class="line">(blank)</div><div class="line">(blank)</div><div class="line">(blank)</div><div class="line">(blank)</div><div class="line">B</div></pre></td></tr></table></figure></p>
+<p>es6的string有内置的iterator，使用这个iterator来遍历字符串可以避免上面的问题:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message=<span class="string">"A 𠮷 B"</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> c <span class="keyword">of</span> message) &#123;</div><div class="line">    <span class="built_in">console</span>.log(c);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A</div><div class="line">(blank)</div><div class="line">𠮷</div><div class="line">(blank)</div><div class="line">B</div></pre></td></tr></table></figure></p>
+<h2 id="NodeList-Iterators"><a href="#NodeList-Iterators" class="headerlink" title="NodeList Iterators"></a>NodeList Iterators</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> divs=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>);</div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> div <span class="keyword">of</span> divs)&#123;</div><div class="line">    <span class="comment">//</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Spread-Operator-and-iterables"><a href="#Spread-Operator-and-iterables" class="headerlink" title="Spread Operator and iterables"></a>Spread Operator and iterables</h1><p><code>...</code>操作符可以用在所有的iterable上，使用其默认的iterator来获得值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> set=<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]),</div><div class="line">    array=[...Set];</div><div class="line"><span class="keyword">let</span> map=<span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"name"</span>,<span class="string">"Nicholas"</span>],[<span class="string">"age"</span>,<span class="number">25</span>]]),</div><div class="line">    array=[...map];</div><div class="line"></div><div class="line"><span class="keyword">let</span> smallNumbers=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</div><div class="line">    bigNumbers=[<span class="number">100</span>,<span class="number">101</span>,<span class="number">102</span>],</div><div class="line">    allNumbers=[<span class="number">0</span>,...smallNumbers,...bigNumbers];</div></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>iterator还有其他的高级用法，但上面的应该最为常用。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/07/实现JavaScript中的bind函数/" rel="next" title="实现JavaScript中的bind函数">
+                <i class="fa fa-chevron-left"></i> 实现JavaScript中的bind函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">恍如隔世之水止云停……</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要iterator"><span class="nav-number">1.</span> <span class="nav-text">为什么需要iterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是iterator"><span class="nav-number">2.</span> <span class="nav-text">什么是iterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Generator"><span class="nav-number">3.</span> <span class="nav-text">什么是Generator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成函数表达式"><span class="nav-number">4.</span> <span class="nav-text">生成函数表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成对象方法"><span class="nav-number">5.</span> <span class="nav-text">生成对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iterables与for-of"><span class="nav-number">6.</span> <span class="nav-text">iterables与for-of</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是iterable"><span class="nav-number">6.1.</span> <span class="nav-text">什么是iterable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得默认的iterator"><span class="nav-number">6.2.</span> <span class="nav-text">获得默认的iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creating-iterables"><span class="nav-number">6.3.</span> <span class="nav-text">creating iterables</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置的iterators"><span class="nav-number">7.</span> <span class="nav-text">内置的iterators</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#collection-iterators"><span class="nav-number">7.1.</span> <span class="nav-text">collection iterators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#entries"><span class="nav-number">7.1.1.</span> <span class="nav-text">entries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#values"><span class="nav-number">7.1.2.</span> <span class="nav-text">values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keys"><span class="nav-number">7.1.3.</span> <span class="nav-text">keys</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#collection默认的iterator"><span class="nav-number">7.2.</span> <span class="nav-text">collection默认的iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-iterator"><span class="nav-number">7.3.</span> <span class="nav-text">string iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeList-Iterators"><span class="nav-number">7.4.</span> <span class="nav-text">NodeList Iterators</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spread-Operator-and-iterables"><span class="nav-number">8.</span> <span class="nav-text">Spread Operator and iterables</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zay.today/2017/05/07/ES6-Iterators-and-Generators总结/';
+          this.page.identifier = '2017/05/07/ES6-Iterators-and-Generators总结/';
+          this.page.title = 'ES6 Iterators and Generators总结';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
