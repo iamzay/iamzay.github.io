@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ES6,JavaScript,Web," />
+  <meta name="keywords" content="Web,JavaScript,ES6," />
 
 
 
@@ -91,13 +91,13 @@
 
 
 <meta name="description" content="对象解构解构声明查了下字典，Destructuring是解构的意思。解构能让我们更容易地从数组或对象中获取值。下面是es6以前经常见到的一种写法:12345678let options = &amp;#123;    repeat: true,    save: false&amp;#125;;// extract data from the objectlet repeat = options.repeat,">
-<meta name="keywords" content="ES6,JavaScript,Web">
+<meta name="keywords" content="Web,JavaScript,ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6 Destructuring总结">
 <meta property="og:url" content="http://zay.today/2017/05/07/ES6-Destructuring总结/index.html">
 <meta property="og:site_name" content="I am Zay...">
 <meta property="og:description" content="对象解构解构声明查了下字典，Destructuring是解构的意思。解构能让我们更容易地从数组或对象中获取值。下面是es6以前经常见到的一种写法:12345678let options = &amp;#123;    repeat: true,    save: false&amp;#125;;// extract data from the objectlet repeat = options.repeat,">
-<meta property="og:updated_time" content="2017-05-07T16:22:26.999Z">
+<meta property="og:updated_time" content="2017-05-07T16:27:13.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 Destructuring总结">
 <meta name="twitter:description" content="对象解构解构声明查了下字典，Destructuring是解构的意思。解构能让我们更容易地从数组或对象中获取值。下面是es6以前经常见到的一种写法:12345678let options = &amp;#123;    repeat: true,    save: false&amp;#125;;// extract data from the objectlet repeat = options.repeat,">
@@ -382,7 +382,7 @@
 
       
         <h1 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h1><h2 id="解构声明"><a href="#解构声明" class="headerlink" title="解构声明"></a>解构声明</h2><p>查了下字典，Destructuring是解构的意思。解构能让我们更容易地从数组或对象中获取值。下面是es6以前经常见到的一种写法:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> options = &#123;</div><div class="line">    <span class="attr">repeat</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">save</span>: <span class="literal">false</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// extract data from the object</span></div><div class="line"><span class="keyword">let</span> repeat = options.repeat,</div><div class="line">    save = options.save;</div></pre></td></tr></table></figure></p>
-<p>采用es6带来的解构，我们可以这样写:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> node = &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">"Identifier"</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">"foo"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">let</span> &#123; type, name &#125; = node;</div><div class="line"><span class="built_in">console</span>.log(type); <span class="comment">// "Identifier"</span></div><div class="line"><span class="built_in">console</span>.log(name); <span class="comment">// "foo</span></div></pre></td></tr></table></figure></p>
+<p>采用es6带来的解构，我们可以这样写:<br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> node = &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">"Identifier"</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">"foo"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">let</span> &#123; type, name &#125; = node;</div><div class="line"><span class="built_in">console</span>.log(type); <span class="comment">// "Identifier"</span></div><div class="line"><span class="built_in">console</span>.log(name); <span class="comment">// "foo</span></div></pre></td></tr></table></figure></p>
 <p>采用解构声明时，必须初始化，否则会产生语法错误:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// syntax error!</span></div><div class="line"><span class="keyword">let</span> &#123; type, name &#125;;</div></pre></td></tr></table></figure></p>
 <h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> node = &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">"Identifier"</span>,</div><div class="line">    <span class="attr">name</span>: <span class="string">"foo"</span></div><div class="line">&#125;,</div><div class="line">type = <span class="string">"Literal"</span>,</div><div class="line">name = <span class="number">5</span>;</div><div class="line"></div><div class="line"><span class="comment">// assign different values using destructuring</span></div><div class="line">(&#123; type, name &#125; = node);</div><div class="line"><span class="built_in">console</span>.log(type); <span class="comment">// "Identifier"</span></div><div class="line"><span class="built_in">console</span>.log(name); <span class="comment">// "foo</span></div></pre></td></tr></table></figure>
 <p>注意对象的解构赋值要用括号包裹，否则会产生语法错误。</p>
@@ -440,11 +440,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ES6/" rel="tag"># ES6</a>
+            <a href="/tags/Web/" rel="tag"># Web</a>
           
             <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/Web/" rel="tag"># Web</a>
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
           
         </div>
       
