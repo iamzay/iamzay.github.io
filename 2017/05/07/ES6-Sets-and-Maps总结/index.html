@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Web,ES6," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="背景es6以前没有map和set，需要用对象去模拟。但对象的属性必须是字符串，这导致了下面这种情况:123var map = Object.create(null);map[5] = &quot;foo&quot;;console.log(map[&quot;5&quot;]); // &quot;foo&quot; 以及下面这种情况:12345var map = Object.create(null),    key1 = &amp;#123;&amp;#125;,">
+<meta name="keywords" content="JavaScript,Web,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 Sets and Maps总结">
+<meta property="og:url" content="http://zay.today/2017/05/07/ES6-Sets-and-Maps总结/index.html">
+<meta property="og:site_name" content="I am Zay...">
+<meta property="og:description" content="背景es6以前没有map和set，需要用对象去模拟。但对象的属性必须是字符串，这导致了下面这种情况:123var map = Object.create(null);map[5] = &quot;foo&quot;;console.log(map[&quot;5&quot;]); // &quot;foo&quot; 以及下面这种情况:12345var map = Object.create(null),    key1 = &amp;#123;&amp;#125;,">
+<meta property="og:updated_time" content="2017-05-07T13:46:12.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6 Sets and Maps总结">
+<meta name="twitter:description" content="背景es6以前没有map和set，需要用对象去模拟。但对象的属性必须是字符串，这导致了下面这种情况:123var map = Object.create(null);map[5] = &quot;foo&quot;;console.log(map[&quot;5&quot;]); // &quot;foo&quot; 以及下面这种情况:12345var map = Object.create(null),    key1 = &amp;#123;&amp;#125;,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zay.today/2017/05/07/ES6-Sets-and-Maps总结/"/>
+
+
+
+
+
+  <title>ES6 Sets and Maps总结 | I am Zay...</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Zay...</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/07/ES6-Sets-and-Maps总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Zay...">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6 Sets and Maps总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T21:04:35+08:00">
+                2017-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/07/ES6-Sets-and-Maps总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/07/ES6-Sets-and-Maps总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>es6以前没有map和set，需要用对象去模拟。但对象的属性必须是字符串，这导致了下面这种情况:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> map = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</div><div class="line">map[<span class="number">5</span>] = <span class="string">"foo"</span>;</div><div class="line"><span class="built_in">console</span>.log(map[<span class="string">"5"</span>]); <span class="comment">// "foo"</span></div></pre></td></tr></table></figure></p>
+<p>以及下面这种情况:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> map = <span class="built_in">Object</span>.create(<span class="literal">null</span>),</div><div class="line">    key1 = &#123;&#125;,</div><div class="line">    key2 = &#123;&#125;;</div><div class="line">map[key1] = <span class="string">"foo"</span>;</div><div class="line"><span class="built_in">console</span>.log(map[key2]); <span class="comment">// "foo"</span></div></pre></td></tr></table></figure></p>
+<p>所以es6加入了map和set。<br><a id="more"></a></p>
+<h1 id="sets"><a href="#sets" class="headerlink" title="sets"></a>sets</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>下面的代码说明set不会像对象一样将所有的键都转换成字符串:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> set=<span class="keyword">new</span> <span class="built_in">Set</span>();</div><div class="line">set.add(<span class="number">5</span>);</div><div class="line">set.add(<span class="string">"5"</span>);</div><div class="line">set.add(<span class="number">5</span>); <span class="comment">// duplicate</span></div><div class="line"><span class="built_in">console</span>.log(set.size);  <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> key1=&#123;&#125;,</div><div class="line">    key2=&#123;&#125;;</div><div class="line"></div><div class="line">set.add(key1);</div><div class="line">set.add(key2);</div><div class="line"><span class="built_in">console</span>.log(set.size);  <span class="comment">// 2</span></div></pre></td></tr></table></figure></p>
+<p>可以用任意的<em>iterable</em>初始化set，下面展示了数组的情况:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// initialize set</span></div><div class="line"><span class="keyword">let</span> set=<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>]);</div><div class="line">set.has(<span class="number">5</span>);  <span class="comment">// true</span></div><div class="line">set.delete(<span class="number">5</span>);</div><div class="line">set.clear();</div></pre></td></tr></table></figure></p>
+<h2 id="forEach-for-sets"><a href="#forEach-for-sets" class="headerlink" title="forEach for sets"></a>forEach for sets</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 可以传递this作为第二个参数</span></div><div class="line">set.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value,key,ownerSet</span>)</span>&#123;</div><div class="line">    <span class="comment">// value==key</span></div><div class="line">&#125;,<span class="keyword">this</span>);</div><div class="line"></div><div class="line"><span class="comment">// 可以传递箭头函数</span></div><div class="line"><span class="keyword">let</span> processor=&#123;</div><div class="line">    output(value)&#123;</div><div class="line">        <span class="built_in">console</span>.log(value);</div><div class="line">    &#125;,</div><div class="line">    process(dataSet)&#123;</div><div class="line">        dataSet.forEach(<span class="function"><span class="params">value</span>=&gt;</span><span class="keyword">this</span>.output(value));</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="sets-to-array"><a href="#sets-to-array" class="headerlink" title="sets to array"></a>sets to array</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> array=[...set];</div></pre></td></tr></table></figure>
+<p>实现一个消除数组重复值的函数:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">eliminateDuplicates</span>(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> [...new <span class="built_in">Set</span>(items)];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Weak-Sets"><a href="#Weak-Sets" class="headerlink" title="Weak Sets"></a>Weak Sets</h2><p>es6加入了WeekSet，<em>只能存取对象</em>，且不影响对象引用的计数。当存取的对象在set外没有引用时，会导致垃圾回收。<br>WeekSet只有下面这三种方法:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(),</div><div class="line">key = &#123;&#125;;</div><div class="line"><span class="comment">// add the object to the set</span></div><div class="line">set.add(key);</div><div class="line"><span class="built_in">console</span>.log(set.has(key)); <span class="comment">// true</span></div><div class="line">set.delete(key);</div><div class="line"><span class="built_in">console</span>.log(set.has(key));</div></pre></td></tr></table></figure></p>
+<p>初上面所说的外，WeakSet还具有下面的特定:</p>
+<ol>
+<li>不是iterable</li>
+<li>没有forEach方法</li>
+<li>没有size属性</li>
+</ol>
+<h1 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h1><h2 id="基本操作-1"><a href="#基本操作-1" class="headerlink" title="基本操作"></a>基本操作</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> map=<span class="keyword">new</span> <span class="built_in">Map</span>();</div><div class="line">map.set(<span class="string">"title"</span>,<span class="string">"es6"</span>);</div><div class="line">map.set(<span class="string">"age"</span>,<span class="number">12</span>);</div><div class="line">key1=&#123;&#125;;</div><div class="line">key2=&#123;&#125;;</div><div class="line">map.set(key1,<span class="number">5</span>);</div><div class="line">map.set(key2,<span class="number">5</span>);</div><div class="line">map.get(key1);  <span class="comment">// 5</span></div><div class="line">map.has(key1);  <span class="comment">// true</span></div><div class="line">map.size;</div><div class="line">map.clear();</div></pre></td></tr></table></figure>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"name"</span>, <span class="string">"Nicholas"</span>], [<span class="string">"age"</span>, <span class="number">25</span>]]);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(map.has(<span class="string">"name"</span>)); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(map.get(<span class="string">"name"</span>)); <span class="comment">// "Nicholas"</span></div><div class="line"><span class="built_in">console</span>.log(map.has(<span class="string">"age"</span>)); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(map.get(<span class="string">"age"</span>)); <span class="comment">// 25</span></div><div class="line"><span class="built_in">console</span>.log(map.size); <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<h2 id="forEach-for-map"><a href="#forEach-for-map" class="headerlink" title="forEach for map"></a>forEach for map</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"name"</span>, <span class="string">"Nicholas"</span>], [<span class="string">"age"</span>, <span class="number">25</span>]]);</div><div class="line">    map.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value, key, ownerMap</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(key + <span class="string">" "</span> + value);</div><div class="line">    <span class="built_in">console</span>.log(ownerMap === map);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<h2 id="WeekMap"><a href="#WeekMap" class="headerlink" title="WeekMap"></a>WeekMap</h2><p>es6的WeekMap是无序的键值对，键<em>必须是非null的对象</em>，值可以是任意的类型。</p>
+<h3 id="WeekMap初始化"><a href="#WeekMap初始化" class="headerlink" title="WeekMap初始化"></a>WeekMap初始化</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> key1 = &#123;&#125;,</div><div class="line">    key2 = &#123;&#125;,</div><div class="line">    map = <span class="keyword">new</span> <span class="built_in">WeakMap</span>([[key1, <span class="string">"Hello"</span>], [key2, <span class="number">42</span>]]);</div><div class="line"><span class="built_in">console</span>.log(map.has(key1)); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(map.get(key1)); <span class="comment">// "Hello"</span></div><div class="line"><span class="built_in">console</span>.log(map.has(key2)); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(map.get(key2)); <span class="comment">// 42</span></div></pre></td></tr></table></figure>
+<h3 id="WeekMap方法"><a href="#WeekMap方法" class="headerlink" title="WeekMap方法"></a>WeekMap方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">WeakMap</span>(),</div><div class="line">    element = <span class="built_in">document</span>.querySelector(<span class="string">".element"</span>);</div><div class="line">    </div><div class="line">map.set(element, <span class="string">"Original"</span>);</div><div class="line"><span class="built_in">console</span>.log(map.has(element)); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(map.get(element)); <span class="comment">// "Original"</span></div><div class="line">map.delete(element);</div><div class="line"><span class="built_in">console</span>.log(map.has(element)); <span class="comment">// false</span></div><div class="line"><span class="built_in">console</span>.log(map.get(element)); <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/07/ES6-Iterators-and-Generators总结/" rel="next" title="ES6 Iterators and Generators总结">
+                <i class="fa fa-chevron-left"></i> ES6 Iterators and Generators总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">恍如隔世之水止云停……</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sets"><span class="nav-number">2.</span> <span class="nav-text">sets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">2.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach-for-sets"><span class="nav-number">2.2.</span> <span class="nav-text">forEach for sets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sets-to-array"><span class="nav-number">2.3.</span> <span class="nav-text">sets to array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Weak-Sets"><span class="nav-number">2.4.</span> <span class="nav-text">Weak Sets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maps"><span class="nav-number">3.</span> <span class="nav-text">Maps</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作-1"><span class="nav-number">3.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">3.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach-for-map"><span class="nav-number">3.3.</span> <span class="nav-text">forEach for map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WeekMap"><span class="nav-number">3.4.</span> <span class="nav-text">WeekMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WeekMap初始化"><span class="nav-number">3.4.1.</span> <span class="nav-text">WeekMap初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeekMap方法"><span class="nav-number">3.4.2.</span> <span class="nav-text">WeekMap方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zay.today/2017/05/07/ES6-Sets-and-Maps总结/';
+          this.page.identifier = '2017/05/07/ES6-Sets-and-Maps总结/';
+          this.page.title = 'ES6 Sets and Maps总结';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
