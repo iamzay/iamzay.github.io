@@ -385,7 +385,9 @@
       
         
           
-            <h1 id="第7章-数据过滤"><a href="#第7章-数据过滤" class="headerlink" title="第7章 数据过滤"></a>第7章 数据过滤</h1><h2 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_price frome products where vend_id=1003 and prod_price&lt;=10;</div></pre></td></tr></table></figure>
+            <h1 id="第7章-数据过滤"><a href="#第7章-数据过滤" class="headerlink" title="第7章 数据过滤"></a>第7章 数据过滤</h1><h2 id="AND-OR"><a href="#AND-OR" class="headerlink" title="AND OR"></a>AND OR</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_price frome products where vend_id=1003 and prod_price&lt;=10;</div></pre></td></tr></table></figure>
+<h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&gt;=10;</div></pre></td></tr></table></figure>
+<h2 id="IN"><a href="#IN" class="headerlink" title="IN"></a>IN</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where vend_id IN (1002,1003) order by prod_name;</div></pre></td></tr></table></figure>
 
           
         
