@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://zay.today/2017/05/11/mysql必知必会总结/index.html">
 <meta property="og:site_name" content="I am Zay...">
 <meta property="og:description" content="第7章 数据过滤AND OR1select prod_id,prod_price frome products where vend_id=1003 and prod_price&amp;lt;=10; 括号1select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&amp;gt;=10; IN1selec">
-<meta property="og:updated_time" content="2017-05-11T06:53:22.185Z">
+<meta property="og:updated_time" content="2017-05-11T07:27:16.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL必知必会总结">
 <meta name="twitter:description" content="第7章 数据过滤AND OR1select prod_id,prod_price frome products where vend_id=1003 and prod_price&amp;lt;=10; 括号1select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&amp;gt;=10; IN1selec">
@@ -387,13 +387,79 @@
 <h2 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where vend_id NOT IN (1002,1003) order by prod_name;</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h1 id="第8章-用通配符过滤"><a href="#第8章-用通配符过滤" class="headerlink" title="第8章 用通配符过滤"></a>第8章 用通配符过滤</h1><h2 id="LIKE"><a href="#LIKE" class="headerlink" title="LIKE"></a>LIKE</h2><p>为了在搜索子句中使用通配符，必须使用LIKE操作符。</p>
-<h3 id=""><a href="#" class="headerlink" title="%"></a>%</h3><p>百分号表示接受任意字符出现任意次数，下面的语句匹配在开头出现jet：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_name from products where prod_name LIKE &apos;jet%&apos;;</div></pre></td></tr></table></figure></p>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="%操作符"></a>%操作符</h3><p>百分号表示接受任意字符出现任意次数，下面的语句匹配在开头出现jet：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_name from products where prod_name LIKE &apos;jet%&apos;;</div></pre></td></tr></table></figure></p>
 <p>下面语句匹配在任意位置出现jet：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id from products where prod_name LIKE &apos;%jet%&apos;;</div></pre></td></tr></table></figure></p>
 <p><code>where prod_name LIKE &#39;%&#39;</code>不能匹配NULL。</p>
-<h3 id="-1"><a href="#-1" class="headerlink" title="_"></a>_</h3><p>下划线只匹配单个字符。</p>
+<h3 id="操作符-1"><a href="#操作符-1" class="headerlink" title="_操作符"></a>_操作符</h3><p>下划线只匹配单个字符。</p>
 <h1 id="第9章-用正则表达式搜索"><a href="#第9章-用正则表达式搜索" class="headerlink" title="第9章 用正则表达式搜索"></a>第9章 用正则表达式搜索</h1><h2 id="基本字符匹配"><a href="#基本字符匹配" class="headerlink" title="基本字符匹配"></a>基本字符匹配</h2><p>要使用正则表达式作为搜索条件，必须在前面使用<code>REGEXP</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">frome products</div><div class="line">where prod_name regexp &apos;.000&apos;</div><div class="line">order by prod_name;</div></pre></td></tr></table></figure></p>
 <p>LIKE用来匹配一个列，后面跟的值必须完全和列相同才会返回该列，REGEXP只需后面跟的模式在列中出现。在REGEX的模式中使用^和$使得匹配整个列。<br>mysql中的正则表达式默认不区分大小写，若要区分，在REGEXP后加上BINARY。</p>
-<h2 id="-2"><a href="#-2" class="headerlink" title="|"></a>|</h2>
+<h2 id="操作符-2"><a href="#操作符-2" class="headerlink" title="|操作符"></a>|操作符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;1000|2000&apos;</div></pre></td></tr></table></figure>
+<h2 id="匹配几个字符之一"><a href="#匹配几个字符之一" class="headerlink" title="匹配几个字符之一"></a>匹配几个字符之一</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;[123] Ton&apos;</div></pre></td></tr></table></figure>
+<p>否则匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;[^123] Ton&apos;</div></pre></td></tr></table></figure></p>
+<h2 id="匹配范围"><a href="#匹配范围" class="headerlink" title="匹配范围"></a>匹配范围</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;[1-5] Ton&apos;</div></pre></td></tr></table></figure>
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>用<code>\\</code>来转义:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;\\.&apos;</div></pre></td></tr></table></figure></p>
+<p>\也用来引用元字符:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;\\f&apos;</div></pre></td></tr></table></figure></p>
+<h2 id="匹配字符类"><a href="#匹配字符类" class="headerlink" title="匹配字符类"></a>匹配字符类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;[:alnum:]&apos;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>字符类</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[:alnum:]</td>
+<td>任意字符（包括大小写）和数字</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>任意字符</td>
+</tr>
+<tr>
+<td>[:blank:]</td>
+<td>空格和制表</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>数字</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重复元字符"><a href="#重复元字符" class="headerlink" title="重复元字符"></a>重复元字符</h2><p><code>*</code>,<code>+</code>,<code>?</code>,<code>{n}</code>,<code>{n,}</code>,<code>{n,m}</code></p>
+<h2 id="匹配特定位置"><a href="#匹配特定位置" class="headerlink" title="匹配特定位置"></a>匹配特定位置</h2><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>文本的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>文本的末尾</td>
+</tr>
+<tr>
+<td>[[:&lt;:]]</td>
+<td>词的开始</td>
+</tr>
+<tr>
+<td>[[:&gt;:]]</td>
+<td>词的末尾</td>
+</tr>
+</tbody>
+</table>
+<p>找出一个数开始的所有产品:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select prod_name</div><div class="line">from products</div><div class="line">where prod_name regexp &apos;^[0-9]&apos;</div></pre></td></tr></table></figure></p>
+<h1 id="创建计算字段"><a href="#创建计算字段" class="headerlink" title="创建计算字段"></a>创建计算字段</h1><h2 id="拼接字段"><a href="#拼接字段" class="headerlink" title="拼接字段"></a>拼接字段</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select Concat(vend_name,&apos;(&apos;,vend_country,&apos;)&apos;)</div><div class="line">from vendors</div><div class="line">order by vend_name;</div></pre></td></tr></table></figure>
+<p>删除数据右侧的所有的空格:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select Concat(RTrim(vend_name),&apos;(&apos;,RTrim(vend_country),&apos;)&apos;)</div><div class="line">from vendors</div></pre></td></tr></table></figure></p>
+<p>除了RTrim()，还有LTrim()和Trim()。</p>
+<h2 id="列别名"><a href="#列别名" class="headerlink" title="列别名"></a>列别名</h2><p>在显示时可用as给计算字段一个title:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select Concat(RTrim(vend_name),&apos;(&apos;,RTrim(vend_country),&apos;)&apos;) as</div><div class="line">vend_titlle</div><div class="line">from vendors</div></pre></td></tr></table></figure></p>
+<h2 id="执行算数计算"><a href="#执行算数计算" class="headerlink" title="执行算数计算"></a>执行算数计算</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">select prod_id,</div><div class="line">       quantity,</div><div class="line">       item_price,</div><div class="line">       quantity*item_price as expanded_price</div><div class="line">from orderitems</div></pre></td></tr></table></figure>
+<h1 id="第11章-使用数据处理函数"><a href="#第11章-使用数据处理函数" class="headerlink" title="第11章 使用数据处理函数"></a>第11章 使用数据处理函数</h1><h2 id="文本处理函数"><a href="#文本处理函数" class="headerlink" title="文本处理函数"></a>文本处理函数</h2>
       
     </div>
 
@@ -584,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">1.</span> <span class="nav-text">第7章 数据过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AND-OR"><span class="nav-number">1.1.</span> <span class="nav-text">AND OR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#括号"><span class="nav-number">1.2.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IN"><span class="nav-number">1.3.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NOT"><span class="nav-number">1.4.</span> <span class="nav-text">NOT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符过滤"><span class="nav-number">2.</span> <span class="nav-text">第8章 用通配符过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LIKE"><span class="nav-number">2.1.</span> <span class="nav-text">LIKE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">2.1.1.</span> <span class="nav-text">%</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">_</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式搜索"><span class="nav-number">3.</span> <span class="nav-text">第9章 用正则表达式搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本字符匹配"><span class="nav-number">3.1.</span> <span class="nav-text">基本字符匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-2"><span class="nav-number">3.2.</span> <span class="nav-text">|</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-数据过滤"><span class="nav-number">1.</span> <span class="nav-text">第7章 数据过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AND-OR"><span class="nav-number">1.1.</span> <span class="nav-text">AND OR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#括号"><span class="nav-number">1.2.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IN"><span class="nav-number">1.3.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NOT"><span class="nav-number">1.4.</span> <span class="nav-text">NOT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第8章-用通配符过滤"><span class="nav-number">2.</span> <span class="nav-text">第8章 用通配符过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LIKE"><span class="nav-number">2.1.</span> <span class="nav-text">LIKE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符"><span class="nav-number">2.1.1.</span> <span class="nav-text">%操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">_操作符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第9章-用正则表达式搜索"><span class="nav-number">3.</span> <span class="nav-text">第9章 用正则表达式搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本字符匹配"><span class="nav-number">3.1.</span> <span class="nav-text">基本字符匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符-2"><span class="nav-number">3.2.</span> <span class="nav-text">|操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配几个字符之一"><span class="nav-number">3.3.</span> <span class="nav-text">匹配几个字符之一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配范围"><span class="nav-number">3.4.</span> <span class="nav-text">匹配范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义字符"><span class="nav-number">3.5.</span> <span class="nav-text">转义字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配字符类"><span class="nav-number">3.6.</span> <span class="nav-text">匹配字符类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复元字符"><span class="nav-number">3.7.</span> <span class="nav-text">重复元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配特定位置"><span class="nav-number">3.8.</span> <span class="nav-text">匹配特定位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建计算字段"><span class="nav-number">4.</span> <span class="nav-text">创建计算字段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拼接字段"><span class="nav-number">4.1.</span> <span class="nav-text">拼接字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列别名"><span class="nav-number">4.2.</span> <span class="nav-text">列别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行算数计算"><span class="nav-number">4.3.</span> <span class="nav-text">执行算数计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第11章-使用数据处理函数"><span class="nav-number">5.</span> <span class="nav-text">第11章 使用数据处理函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本处理函数"><span class="nav-number">5.1.</span> <span class="nav-text">文本处理函数</span></a></li></ol></li></ol></div>
             
 
           </div>
