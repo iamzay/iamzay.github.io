@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/11/mysql必知必会总结/" itemprop="url">mysql必知必会总结</a></h1>
+                <a class="post-title-link" href="/2017/05/11/mysql必知必会总结/" itemprop="url">MySQL必知必会总结</a></h1>
         
 
         <div class="post-meta">
@@ -338,8 +338,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
+                  <a href="/categories/数据库/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -384,12 +384,17 @@
 
       
         
-          
-            <h1 id="第7章-数据过滤"><a href="#第7章-数据过滤" class="headerlink" title="第7章 数据过滤"></a>第7章 数据过滤</h1><h2 id="AND-OR"><a href="#AND-OR" class="headerlink" title="AND OR"></a>AND OR</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_price frome products where vend_id=1003 and prod_price&lt;=10;</div></pre></td></tr></table></figure>
+          <h1 id="第7章-数据过滤"><a href="#第7章-数据过滤" class="headerlink" title="第7章 数据过滤"></a>第7章 数据过滤</h1><h2 id="AND-OR"><a href="#AND-OR" class="headerlink" title="AND OR"></a>AND OR</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_id,prod_price frome products where vend_id=1003 and prod_price&lt;=10;</div></pre></td></tr></table></figure>
 <h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&gt;=10;</div></pre></td></tr></table></figure>
 <h2 id="IN"><a href="#IN" class="headerlink" title="IN"></a>IN</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where vend_id IN (1002,1003) order by prod_name;</div></pre></td></tr></table></figure>
-
-          
+<h2 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select prod_name from products where vend_id NOT IN (1002,1003) order by prod_name;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/11/mysql必知必会总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
