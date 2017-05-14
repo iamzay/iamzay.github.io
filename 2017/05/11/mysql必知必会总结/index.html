@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://zay.today/2017/05/11/mysql必知必会总结/index.html">
 <meta property="og:site_name" content="I am Zay...">
 <meta property="og:description" content="第7章 数据过滤AND OR1select prod_id,prod_price frome products where vend_id=1003 and prod_price&amp;lt;=10; 括号1select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&amp;gt;=10; IN1selec">
-<meta property="og:updated_time" content="2017-05-13T05:45:11.629Z">
+<meta property="og:updated_time" content="2017-05-13T05:48:38.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL必知必会总结">
 <meta name="twitter:description" content="第7章 数据过滤AND OR1select prod_id,prod_price frome products where vend_id=1003 and prod_price&amp;lt;=10; 括号1select prod_name from products where (vend_id=1002 or vend_id=1003) and prod_price&amp;gt;=10; IN1selec">
@@ -592,7 +592,7 @@
 <h1 id="第17章-组合查询"><a href="#第17章-组合查询" class="headerlink" title="第17章 组合查询"></a>第17章 组合查询</h1><h2 id="使用union"><a href="#使用union" class="headerlink" title="使用union"></a>使用union</h2><p>利用UNION，可把多条查询的结果作为一条组合查询返回，不管它们的结果中包含还是不包含重复。<br>UNION会自动将去重，若想保留重复，使用UNION ALL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">select vend_id</div><div class="line">from products</div><div class="line">where prod_price &lt;=5</div><div class="line">union all</div><div class="line">selct vend_id</div><div class="line">from products</div><div class="line">where vend_id in (1001,1002);</div></pre></td></tr></table></figure></p>
 <h1 id="第18章-全文本搜索"><a href="#第18章-全文本搜索" class="headerlink" title="第18章 全文本搜索"></a>第18章 全文本搜索</h1><p>两个最常使用的引擎为MyISAM和InnoDB，前者支持全文本搜索，而后者不支持。<br>全文本搜索的一个重要部分就是对结果排序。具有较高等级的行先返回（因为这些行很可能是你真正想要的行），下面查找note_text列具有rabbit一词的行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">select note_text</div><div class="line">from productnotes</div><div class="line">where Match(note_text) Against(&apos;rabbit&apos;);</div></pre></td></tr></table></figure></p>
 <h1 id="第22章-使用视图"><a href="#第22章-使用视图" class="headerlink" title="第22章 使用视图"></a>第22章 使用视图</h1><p>视图是虚拟的表，保存着select语句选择出来的数据。可以像使用表一样使用视图，即使用select从视图中选择数据。</p>
-<h1 id="第23章-存储过程"><a href="#第23章-存储过程" class="headerlink" title="第23章 存储过程"></a>第23章 存储过程</h1><p>执行存储过程的语句为CALL,CALL接受存储过程的名字以及需要传递给它的任意参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">call productpricing(%pricelow,</div><div class="line">                    %pricehign,</div><div class="line">                    @priceaverage);</div></pre></td></tr></table></figure></p>
+<h1 id="第23章-存储过程"><a href="#第23章-存储过程" class="headerlink" title="第23章 存储过程"></a>第23章 存储过程</h1><p>执行存储过程的语句为CALL,CALL接受存储过程的名字以及需要传递给它的任意参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">call productpricing(@pricelow,</div><div class="line">                    @pricehign,</div><div class="line">                    @priceaverage);</div></pre></td></tr></table></figure></p>
 <p>编写一个存储过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create procedure productpricing()</div><div class="line">begin</div><div class="line">   select avg(prod_price) as priceaverage</div><div class="line">   from products;</div><div class="line">end;</div></pre></td></tr></table></figure></p>
 <p>像使用函数一样使用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">call productpricing();</div></pre></td></tr></table></figure></p>
 <p>接受参数的存储过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">create procedure productpricing(</div><div class="line">   out pl decimal(8,2),</div><div class="line">   out ph decimal(8,2),</div><div class="line">   out pa decimal(8,2)</div><div class="line">)</div><div class="line">begin</div><div class="line">   select min(prod_price)</div><div class="line">   into p1</div><div class="line">   from products;</div><div class="line">   ...</div><div class="line">end;</div></pre></td></tr></table></figure></p>
@@ -740,7 +740,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -751,7 +751,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -762,7 +762,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
