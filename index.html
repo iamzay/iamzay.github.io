@@ -384,8 +384,7 @@
 
       
         
-          
-            <h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="初次运行的配置"><a href="#初次运行的配置" class="headerlink" title="初次运行的配置"></a>初次运行的配置</h2><p>git有三种级别的配置文件:</p>
+          <h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="初次运行的配置"><a href="#初次运行的配置" class="headerlink" title="初次运行的配置"></a>初次运行的配置</h2><p>git有三种级别的配置文件:</p>
 <ol>
 <li>/etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。</li>
 <li>~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。</li>
@@ -397,15 +396,14 @@
 <h3 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git help &lt;verb&gt;</div><div class="line">git &lt;verb&gt; --help</div><div class="line">man git-&lt;verb&gt;</div></pre></td></tr></table></figure>
 <h1 id="git基础"><a href="#git基础" class="headerlink" title="git基础"></a>git基础</h1><h2 id="获得git仓库"><a href="#获得git仓库" class="headerlink" title="获得git仓库"></a>获得git仓库</h2><h3 id="在工作目录中初始化新仓库"><a href="#在工作目录中初始化新仓库" class="headerlink" title="在工作目录中初始化新仓库"></a>在工作目录中初始化新仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
 <h2 id="从现有项目克隆"><a href="#从现有项目克隆" class="headerlink" title="从现有项目克隆"></a>从现有项目克隆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone git://github.com/schacon/grit.git</div></pre></td></tr></table></figure>
-<p>上面使用的是git协议。</p>
-<h2 id="记录每次更新"><a href="#记录每次更新" class="headerlink" title="记录每次更新"></a>记录每次更新</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add ...</div><div class="line">git commit ...</div></pre></td></tr></table></figure>
-<p>使用git时的文件状态变化:<br><img src="/uploads/pro-git总结/1.png" alt="git"></p>
-<h2 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 此为注释 – 将被 Git 忽略</div><div class="line"># 忽略所有 .a 结尾的文件</div><div class="line">*.a</div><div class="line"># 但 lib.a 除外</div><div class="line">!lib.a</div><div class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</div><div class="line">/TODO</div><div class="line"># 忽略 build/ 目录下的所有文件</div><div class="line">build/</div><div class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</div><div class="line">doc/*.txt</div><div class="line"># ignore all .txt files in the doc/ directory</div><div class="line">doc/**/*.txt</div></pre></td></tr></table></figure>
-<h2 id="查看更改"><a href="#查看更改" class="headerlink" title="查看更改"></a>查看更改</h2><p>查看已经暂存的和上次提交时的差异:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff -cached</div></pre></td></tr></table></figure></p>
-<p>查看尚未暂存的文件和暂存区的文件差异:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff</div></pre></td></tr></table></figure></p>
-<h2 id="跳过暂存"><a href="#跳过暂存" class="headerlink" title="跳过暂存"></a>跳过暂存</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a -m &apos;..&apos;</div></pre></td></tr></table></figure>
-
-          
+<p>上面使用的是git协议。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/14/pro-git总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
