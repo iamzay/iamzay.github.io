@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="I am Zay...">
 <meta property="og:description" content="起步初次运行的配置git有三种级别的配置文件:  /etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。 ~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。 当前项目的 Git 目录中的配置文件（也就是工作目录">
 <meta property="og:image" content="http://zay.today/uploads/pro-git总结/1.png">
-<meta property="og:updated_time" content="2017-05-14T08:53:54.116Z">
+<meta property="og:updated_time" content="2017-05-15T08:42:47.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pro git总结">
 <meta name="twitter:description" content="起步初次运行的配置git有三种级别的配置文件:  /etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。 ~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。 当前项目的 Git 目录中的配置文件（也就是工作目录">
@@ -387,15 +387,16 @@
 <ol>
 <li>/etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。</li>
 <li>~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。</li>
-<li>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。</li>
-</ol>
+<li>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。<a id="more"></a>
 <h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;John Doe&quot;</div><div class="line">$ git config --global user.email johndoe@example.com</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <p>加了–global更改的就是用户的gitconfig，不加的话需改的是项目中.git/config。</p>
 <h3 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --list</div></pre></td></tr></table></figure>
 <h3 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git help &lt;verb&gt;</div><div class="line">git &lt;verb&gt; --help</div><div class="line">man git-&lt;verb&gt;</div></pre></td></tr></table></figure>
 <h1 id="git基础"><a href="#git基础" class="headerlink" title="git基础"></a>git基础</h1><h2 id="获得git仓库"><a href="#获得git仓库" class="headerlink" title="获得git仓库"></a>获得git仓库</h2><h3 id="在工作目录中初始化新仓库"><a href="#在工作目录中初始化新仓库" class="headerlink" title="在工作目录中初始化新仓库"></a>在工作目录中初始化新仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
 <h2 id="从现有项目克隆"><a href="#从现有项目克隆" class="headerlink" title="从现有项目克隆"></a>从现有项目克隆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone git://github.com/schacon/grit.git</div></pre></td></tr></table></figure>
-<p>上面使用的是git协议。<br><a id="more"></a></p>
+<p>上面使用的是git协议。</p>
 <h2 id="记录每次更新"><a href="#记录每次更新" class="headerlink" title="记录每次更新"></a>记录每次更新</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add ...</div><div class="line">git commit ...</div></pre></td></tr></table></figure>
 <p>使用git时的文件状态变化:<br><img src="/uploads/pro-git总结/1.png" alt="git"></p>
 <h2 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 此为注释 – 将被 Git 忽略</div><div class="line"># 忽略所有 .a 结尾的文件</div><div class="line">*.a</div><div class="line"># 但 lib.a 除外</div><div class="line">!lib.a</div><div class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</div><div class="line">/TODO</div><div class="line"># 忽略 build/ 目录下的所有文件</div><div class="line">build/</div><div class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</div><div class="line">doc/*.txt</div><div class="line"># ignore all .txt files in the doc/ directory</div><div class="line">doc/**/*.txt</div></pre></td></tr></table></figure>
@@ -453,6 +454,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/14/React学习笔记/" rel="prev" title="React学习笔记">
+                React学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -534,7 +539,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -545,7 +550,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -556,7 +561,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
