@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="I am Zay...">
 <meta property="og:description" content="起步初次运行的配置git有三种级别的配置文件:  /etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。 ~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。 当前项目的 Git 目录中的配置文件（也就是工作目录">
 <meta property="og:image" content="http://zay.today/uploads/pro-git总结/1.png">
-<meta property="og:updated_time" content="2017-05-15T08:42:47.706Z">
+<meta property="og:updated_time" content="2017-05-15T08:44:34.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pro git总结">
 <meta name="twitter:description" content="起步初次运行的配置git有三种级别的配置文件:  /etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。 ~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。 当前项目的 Git 目录中的配置文件（也就是工作目录">
@@ -387,10 +387,10 @@
 <ol>
 <li>/etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。</li>
 <li>~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。</li>
-<li>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。<a id="more"></a>
-<h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;John Doe&quot;</div><div class="line">$ git config --global user.email johndoe@example.com</div></pre></td></tr></table></figure>
-</li>
+<li>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。</li>
 </ol>
+<a id="more"></a>
+<h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;John Doe&quot;</div><div class="line">$ git config --global user.email johndoe@example.com</div></pre></td></tr></table></figure>
 <p>加了–global更改的就是用户的gitconfig，不加的话需改的是项目中.git/config。</p>
 <h3 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --list</div></pre></td></tr></table></figure>
 <h3 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git help &lt;verb&gt;</div><div class="line">git &lt;verb&gt; --help</div><div class="line">man git-&lt;verb&gt;</div></pre></td></tr></table></figure>
