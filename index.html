@@ -273,6 +273,168 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/20/全栈Web开发之node-js总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Zay...">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/20/全栈Web开发之node-js总结/" itemprop="url">全栈Web开发之node.js总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T19:22:08+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/20/全栈Web开发之node-js总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/20/全栈Web开发之node-js总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Intro-to-Node-js-and-NPM"><a href="#Intro-to-Node-js-and-NPM" class="headerlink" title="Intro to Node.js and NPM"></a>Intro to Node.js and NPM</h1><h2 id="Node-Modules"><a href="#Node-Modules" class="headerlink" title="Node Modules"></a>Node Modules</h2><h3 id="Understanding-Node-Modules"><a href="#Understanding-Node-Modules" class="headerlink" title="Understanding Node Modules"></a>Understanding Node Modules</h3><p>一个简单的node module:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">exports.perimeter = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="number">2</span>*(x+y));</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> (x*y);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用上面的模块:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rect = <span class="built_in">require</span>(<span class="string">'./rectangle-1'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">solveRect</span>(<span class="params">l,b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Solving for rectangle with l = "</span> + l + <span class="string">" and b = "</span> + b);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (l &lt; <span class="number">0</span> || b &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"Rectangle dimensions should be greater than zero:  l = "</span></div><div class="line">               + l + <span class="string">",  and b = "</span> + b);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"The area of a rectangle of dimensions length = "</span></div><div class="line">               + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rect.area(l,b));</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"The perimeter of a rectangle of dimensions length = "</span></div><div class="line">               + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rect.perimeter(l,b));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">solveRect(<span class="number">2</span>,<span class="number">4</span>);</div><div class="line">solveRect(<span class="number">3</span>,<span class="number">5</span>);</div><div class="line">solveRect(<span class="number">-3</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="Using-Callbacks-and-Error-Handling"><a href="#Using-Callbacks-and-Error-Handling" class="headerlink" title="Using Callbacks and Error Handling"></a>Using Callbacks and Error Handling</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">x,y,callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">if</span> (x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Rectangle dimensions should be greater than zero: l = "</span></div><div class="line">                            + x + <span class="string">", and b = "</span> + y);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">         callback(<span class="literal">null</span>, &#123;</div><div class="line">            <span class="attr">perimeter</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        		   <span class="keyword">return</span> (<span class="number">2</span>*(x+y));</div><div class="line">			&#125;,</div><div class="line">            <span class="attr">area</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        		    <span class="keyword">return</span> (x*y);</div><div class="line">			&#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">catch</span> (error) &#123;</div><div class="line">        callback(error,<span class="literal">null</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rect = <span class="built_in">require</span>(<span class="string">'./rectangle-2'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">solveRect</span>(<span class="params">l,b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Solving for rectangle with l = "</span></div><div class="line">                + l + <span class="string">" and b = "</span> + b);</div><div class="line">    rect(l,b, <span class="function"><span class="keyword">function</span>(<span class="params">err,rectangle</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) &#123;</div><div class="line">	    <span class="built_in">console</span>.log(err);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">	    <span class="built_in">console</span>.log(<span class="string">"The area of a rectangle of dimensions length = "</span></div><div class="line">                 + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rectangle.area());</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"The perimeter of a rectangle of dimensions length = "</span></div><div class="line">                 + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rectangle.perimeter());</div><div class="line">	&#125;</div><div class="line">    &#125;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">solveRect(<span class="number">2</span>,<span class="number">4</span>);</div><div class="line">solveRect(<span class="number">3</span>,<span class="number">5</span>);</div><div class="line">solveRect(<span class="number">-3</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure>
+<h3 id="Using-yargs-External-Node-module"><a href="#Using-yargs-External-Node-module" class="headerlink" title="Using yargs External Node module"></a>Using yargs External Node module</h3><p>yargs模块可以让用户在控制台提供参数，安装模块:<br><code>npm install yargs --save</code></p>
+<h2 id="Node-and-HTTP"><a href="#Node-and-HTTP" class="headerlink" title="Node and HTTP"></a>Node and HTTP</h2><p>一个简单的http服务器:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> hostname = <span class="string">'localhost'</span>;</div><div class="line"><span class="keyword">var</span> port = <span class="number">3000</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(req.headers);</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html'</span> &#125;);</div><div class="line">  res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello World&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">  &#125;)</div><div class="line">server.listen(port, hostname, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`Server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>实现了get方法的http服务器:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> hostname=<span class="string">'localhost'</span>;</div><div class="line"><span class="keyword">var</span> port=<span class="number">3000</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> server=http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Request for'</span>+req.url+<span class="string">'by method'</span>+req.method);</div><div class="line">    <span class="keyword">if</span>(req.method==<span class="string">'GET'</span>)&#123;</div><div class="line">        <span class="keyword">var</span> fileUrl;</div><div class="line">        <span class="keyword">if</span>(req.url==<span class="string">'/'</span>)&#123;</div><div class="line">            fileUrl=<span class="string">'/index.html'</span>;</div><div class="line">        &#125; <span class="keyword">else</span>&#123;</div><div class="line">            fileUrl=req.url;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> filePath=path.resolve(<span class="string">'./public'</span>+fileUrl);</div><div class="line">        <span class="keyword">var</span> fileExt=path.extname(filePath);</div><div class="line">        <span class="keyword">if</span>(fileExt==<span class="string">'.html'</span>)&#123;</div><div class="line">            fs.exists(filePath,<span class="function"><span class="keyword">function</span>(<span class="params">exists</span>)</span>&#123;</div><div class="line">                <span class="keyword">if</span>(!exists)&#123;</div><div class="line">                    res.writHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">                    res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404:'</span>+fileUrl+<span class="string">' not found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125;</div><div class="line">                res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">                fs.createReadStream(filePath).pipe(res);</div><div class="line">            &#125;);</div><div class="line">        &#125; <span class="keyword">else</span>&#123;</div><div class="line"></div><div class="line">            res.writeHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">            res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404: '</span>+fileUrl+<span class="string">' not a html file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span>&#123;</div><div class="line">        res.writeHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">        res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404: '</span>+req.method+<span class="string">' not supported&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(port,hostname,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/18/总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -292,7 +454,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/18/总结/" itemprop="url">总结</a></h1>
+                <a class="post-title-link" href="/2017/05/18/总结/" itemprop="url">ES6 promises总结</a></h1>
         
 
         <div class="post-meta">
@@ -314,6 +476,39 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1742,166 +1937,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/08/ES6-Block-Bindings总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zay">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I am Zay...">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/08/ES6-Block-Bindings总结/" itemprop="url">ES6 Block Bindings总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-08T14:05:46+08:00">
-                2017-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/08/ES6-Block-Bindings总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/ES6-Block-Bindings总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Block-Level声明"><a href="#Block-Level声明" class="headerlink" title="Block-Level声明"></a>Block-Level声明</h1><h2 id="let声明"><a href="#let声明" class="headerlink" title="let声明"></a>let声明</h2><p>let声明的变量只在包含let的代码块内才能使用，且let声明不会提升。代码块是花括号组成的块。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">condition</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(condition)&#123;</div><div class="line">        <span class="keyword">let</span> value=<span class="string">"blue"</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// value doesn't exist here</span></div><div class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// value doesn't exist here</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/08/ES6-Block-Bindings总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1951,7 +1986,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1962,7 +1997,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1973,7 +2008,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

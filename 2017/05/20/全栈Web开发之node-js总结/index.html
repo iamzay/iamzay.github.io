@@ -1,0 +1,775 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Web,Node.js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Intro to Node.js and NPMNode ModulesUnderstanding Node Modules一个简单的node module:1234567exports.perimeter = function (x, y) &amp;#123;        return (2*(x+y));&amp;#125;exports.area = function (x, y) &amp;#123;">
+<meta name="keywords" content="Web,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全栈Web开发之node.js总结">
+<meta property="og:url" content="http://zay.today/2017/05/20/全栈Web开发之node-js总结/index.html">
+<meta property="og:site_name" content="I am Zay...">
+<meta property="og:description" content="Intro to Node.js and NPMNode ModulesUnderstanding Node Modules一个简单的node module:1234567exports.perimeter = function (x, y) &amp;#123;        return (2*(x+y));&amp;#125;exports.area = function (x, y) &amp;#123;">
+<meta property="og:updated_time" content="2017-05-20T13:47:20.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="全栈Web开发之node.js总结">
+<meta name="twitter:description" content="Intro to Node.js and NPMNode ModulesUnderstanding Node Modules一个简单的node module:1234567exports.perimeter = function (x, y) &amp;#123;        return (2*(x+y));&amp;#125;exports.area = function (x, y) &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zay.today/2017/05/20/全栈Web开发之node-js总结/"/>
+
+
+
+
+
+  <title>全栈Web开发之node.js总结 | I am Zay...</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I am Zay...</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/20/全栈Web开发之node-js总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Zay...">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">全栈Web开发之node.js总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T19:22:08+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/20/全栈Web开发之node-js总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/20/全栈Web开发之node-js总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Intro-to-Node-js-and-NPM"><a href="#Intro-to-Node-js-and-NPM" class="headerlink" title="Intro to Node.js and NPM"></a>Intro to Node.js and NPM</h1><h2 id="Node-Modules"><a href="#Node-Modules" class="headerlink" title="Node Modules"></a>Node Modules</h2><h3 id="Understanding-Node-Modules"><a href="#Understanding-Node-Modules" class="headerlink" title="Understanding Node Modules"></a>Understanding Node Modules</h3><p>一个简单的node module:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">exports.perimeter = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="number">2</span>*(x+y));</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> (x*y);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用上面的模块:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rect = <span class="built_in">require</span>(<span class="string">'./rectangle-1'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">solveRect</span>(<span class="params">l,b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Solving for rectangle with l = "</span> + l + <span class="string">" and b = "</span> + b);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (l &lt; <span class="number">0</span> || b &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"Rectangle dimensions should be greater than zero:  l = "</span></div><div class="line">               + l + <span class="string">",  and b = "</span> + b);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"The area of a rectangle of dimensions length = "</span></div><div class="line">               + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rect.area(l,b));</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"The perimeter of a rectangle of dimensions length = "</span></div><div class="line">               + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rect.perimeter(l,b));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">solveRect(<span class="number">2</span>,<span class="number">4</span>);</div><div class="line">solveRect(<span class="number">3</span>,<span class="number">5</span>);</div><div class="line">solveRect(<span class="number">-3</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="Using-Callbacks-and-Error-Handling"><a href="#Using-Callbacks-and-Error-Handling" class="headerlink" title="Using Callbacks and Error Handling"></a>Using Callbacks and Error Handling</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">x,y,callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">if</span> (x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Rectangle dimensions should be greater than zero: l = "</span></div><div class="line">                            + x + <span class="string">", and b = "</span> + y);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">         callback(<span class="literal">null</span>, &#123;</div><div class="line">            <span class="attr">perimeter</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        		   <span class="keyword">return</span> (<span class="number">2</span>*(x+y));</div><div class="line">			&#125;,</div><div class="line">            <span class="attr">area</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        		    <span class="keyword">return</span> (x*y);</div><div class="line">			&#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">catch</span> (error) &#123;</div><div class="line">        callback(error,<span class="literal">null</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rect = <span class="built_in">require</span>(<span class="string">'./rectangle-2'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">solveRect</span>(<span class="params">l,b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Solving for rectangle with l = "</span></div><div class="line">                + l + <span class="string">" and b = "</span> + b);</div><div class="line">    rect(l,b, <span class="function"><span class="keyword">function</span>(<span class="params">err,rectangle</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) &#123;</div><div class="line">	    <span class="built_in">console</span>.log(err);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">	    <span class="built_in">console</span>.log(<span class="string">"The area of a rectangle of dimensions length = "</span></div><div class="line">                 + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rectangle.area());</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"The perimeter of a rectangle of dimensions length = "</span></div><div class="line">                 + l + <span class="string">" and breadth = "</span> + b + <span class="string">" is "</span> + rectangle.perimeter());</div><div class="line">	&#125;</div><div class="line">    &#125;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">solveRect(<span class="number">2</span>,<span class="number">4</span>);</div><div class="line">solveRect(<span class="number">3</span>,<span class="number">5</span>);</div><div class="line">solveRect(<span class="number">-3</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure>
+<h3 id="Using-yargs-External-Node-module"><a href="#Using-yargs-External-Node-module" class="headerlink" title="Using yargs External Node module"></a>Using yargs External Node module</h3><p>yargs模块可以让用户在控制台提供参数，安装模块:<br><code>npm install yargs --save</code></p>
+<h2 id="Node-and-HTTP"><a href="#Node-and-HTTP" class="headerlink" title="Node and HTTP"></a>Node and HTTP</h2><p>一个简单的http服务器:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> hostname = <span class="string">'localhost'</span>;</div><div class="line"><span class="keyword">var</span> port = <span class="number">3000</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(req.headers);</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html'</span> &#125;);</div><div class="line">  res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello World&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">  &#125;)</div><div class="line">server.listen(port, hostname, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`Server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>实现了get方法的http服务器:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> hostname=<span class="string">'localhost'</span>;</div><div class="line"><span class="keyword">var</span> port=<span class="number">3000</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> server=http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Request for'</span>+req.url+<span class="string">'by method'</span>+req.method);</div><div class="line">    <span class="keyword">if</span>(req.method==<span class="string">'GET'</span>)&#123;</div><div class="line">        <span class="keyword">var</span> fileUrl;</div><div class="line">        <span class="keyword">if</span>(req.url==<span class="string">'/'</span>)&#123;</div><div class="line">            fileUrl=<span class="string">'/index.html'</span>;</div><div class="line">        &#125; <span class="keyword">else</span>&#123;</div><div class="line">            fileUrl=req.url;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> filePath=path.resolve(<span class="string">'./public'</span>+fileUrl);</div><div class="line">        <span class="keyword">var</span> fileExt=path.extname(filePath);</div><div class="line">        <span class="keyword">if</span>(fileExt==<span class="string">'.html'</span>)&#123;</div><div class="line">            fs.exists(filePath,<span class="function"><span class="keyword">function</span>(<span class="params">exists</span>)</span>&#123;</div><div class="line">                <span class="keyword">if</span>(!exists)&#123;</div><div class="line">                    res.writHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">                    res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404:'</span>+fileUrl+<span class="string">' not found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125;</div><div class="line">                res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">                fs.createReadStream(filePath).pipe(res);</div><div class="line">            &#125;);</div><div class="line">        &#125; <span class="keyword">else</span>&#123;</div><div class="line"></div><div class="line">            res.writeHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">            res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404: '</span>+fileUrl+<span class="string">' not a html file&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span>&#123;</div><div class="line">        res.writeHead(<span class="number">404</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html'</span>&#125;);</div><div class="line">        res.end(<span class="string">'&lt;html&gt;&lt;body&gt;&lt;h1&gt;Error 404: '</span>+req.method+<span class="string">' not supported&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(port,hostname,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/18/总结/" rel="next" title="ES6 promises总结">
+                <i class="fa fa-chevron-left"></i> ES6 promises总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">恍如隔世之水止云停……</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Intro-to-Node-js-and-NPM"><span class="nav-number">1.</span> <span class="nav-text">Intro to Node.js and NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-Modules"><span class="nav-number">1.1.</span> <span class="nav-text">Node Modules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Understanding-Node-Modules"><span class="nav-number">1.1.1.</span> <span class="nav-text">Understanding Node Modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Callbacks-and-Error-Handling"><span class="nav-number">1.1.2.</span> <span class="nav-text">Using Callbacks and Error Handling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-yargs-External-Node-module"><span class="nav-number">1.1.3.</span> <span class="nav-text">Using yargs External Node module</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-and-HTTP"><span class="nav-number">1.2.</span> <span class="nav-text">Node and HTTP</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zay.today/2017/05/20/全栈Web开发之node-js总结/';
+          this.page.identifier = '2017/05/20/全栈Web开发之node-js总结/';
+          this.page.title = '全栈Web开发之node.js总结';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
