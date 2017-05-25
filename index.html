@@ -273,6 +273,163 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/26/React实现评论组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I am Zay...">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/26/React实现评论组件/" itemprop="url">React实现评论组件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T01:33:12+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/26/React实现评论组件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/26/React实现评论组件/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个例子来自胡子大哈的<a href="http://huziketang.com/books/react/" target="_blank" rel="external">React小书</a>。<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> 1. 学习localStorage，完成加载之前的评论</div><div class="line"> 2. 为什么+new Date()</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react'</span>);</div><div class="line"><span class="keyword">var</span> ReactDOM = <span class="built_in">require</span>(<span class="string">'react-dom'</span>);</div><div class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommentApp</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props) &#123;</div><div class="line">        <span class="keyword">super</span>(props);</div><div class="line"></div><div class="line">        <span class="keyword">this</span>.state=&#123;<span class="attr">comments</span>:[]&#125;;</div><div class="line">        <span class="keyword">this</span>.cnt=<span class="number">0</span>;</div><div class="line">        <span class="keyword">this</span>.handleInputSubmit=<span class="keyword">this</span>.handleInputSubmit.bind(<span class="keyword">this</span>);</div><div class="line">        <span class="keyword">this</span>.handleCommentDelete=<span class="keyword">this</span>.handleCommentDelete.bind(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        <span class="comment">//this._loadComments();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _loadComments()&#123;</div><div class="line">        <span class="keyword">let</span> comments=localStorage.getItem(<span class="string">'comments'</span>);</div><div class="line">        <span class="keyword">if</span>(comments)&#123;</div><div class="line">           comments=<span class="built_in">JSON</span>.parse(comments);</div><div class="line">           <span class="keyword">this</span>.setState(&#123;comments&#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleCommentDelete(index)&#123;</div><div class="line">        <span class="keyword">const</span> comments=<span class="keyword">this</span>.state.comments.filter(<span class="function">(<span class="params">comment</span>)=&gt;</span>comment.id!=index);</div><div class="line">        <span class="keyword">this</span>.setState(&#123;comments&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleInputSubmit(comment)&#123;</div><div class="line">        comment.id=<span class="keyword">this</span>.cnt++;</div><div class="line">        <span class="keyword">let</span> newComments=<span class="keyword">this</span>.state.comments.concat(comment);</div><div class="line">        <span class="keyword">this</span>.setState(&#123;<span class="attr">comments</span>:newComments&#125;);</div><div class="line">        <span class="keyword">this</span>._saveComments(newComments);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _saveComments(comments)&#123;</div><div class="line">        localStorage.setItem(<span class="string">'comments'</span>,<span class="built_in">JSON</span>.stringify(comments));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;div className="wrapper"&gt;</div><div class="line">                &lt;CommentInput onSubmit=&#123;this.handleInputSubmit&#125;/&gt;</div><div class="line">                &lt;CommentList comments=&#123;this.state.comments&#125; handleCommentDelete=&#123;this.handleCommentDelete&#125;/&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CommentInput extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.state=&#123;username:localStorage.getItem('username'),content:''&#125;;</div><div class="line">        this.handleNameChange=this.handleNameChange.bind(this);</div><div class="line">        this.handleContentChange=this.handleContentChange.bind(this);</div><div class="line">        this.handleInputSubmit=this.handleInputSubmit.bind(this);</div><div class="line">        this.handleInputBlur=this.handleInputBlur.bind(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentDidMount()&#123;</div><div class="line">        this.input.focus();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleNameChange(e)&#123;</div><div class="line">        this.setState(&#123;username:e.target.value&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleContentChange(e)&#123;</div><div class="line">        this.setState(&#123;content:e.target.value&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleInputSubmit(e)&#123;</div><div class="line">        //this.props.handleInputSubmit(this.state);</div><div class="line">        if (this.props.onSubmit) &#123;</div><div class="line">            this.props.onSubmit(&#123;</div><div class="line">                username: this.state.username,</div><div class="line">                content: this.state.content,</div><div class="line">                createTime: +new Date()</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">        this.setState(&#123; content: '' &#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleInputBlur(e)&#123;</div><div class="line">        this._saveUsername(e.target.value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _saveUsername(username)&#123;</div><div class="line">        localStorage.setItem('username',username);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;div className='comment-input'&gt;</div><div class="line">                &lt;div className='comment-field'&gt;</div><div class="line">                    &lt;span className='comment-field-name'&gt;用户名：&lt;/span&gt;</div><div class="line">                    &lt;div className='comment-field-input'&gt;</div><div class="line">                        &lt;input value=&#123;this.state.username&#125;</div><div class="line">                               onChange=&#123;this.handleNameChange&#125;</div><div class="line">                               onBlur=&#123;this.handleInputBlur&#125;</div><div class="line">                               /&gt;</div><div class="line">                    &lt;/div&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">                &lt;div className='comment-field'&gt;</div><div class="line">                    &lt;span className='comment-field-name'&gt;评论内容：&lt;/span&gt;</div><div class="line">                    &lt;div className='comment-field-input'&gt;</div><div class="line">                        &lt;textarea value=&#123;this.state.content&#125;</div><div class="line">                                  onChange=&#123;this.handleContentChange&#125;</div><div class="line">                                  ref=&#123;(input)=&gt;this.input=input&#125;/&gt;</div><div class="line">                    &lt;/div&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">                &lt;div className='comment-field-button'&gt;</div><div class="line">                    &lt;button onClick=&#123;this.handleInputSubmit&#125;&gt;</div><div class="line">                        发布</div><div class="line">                    &lt;/button&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class CommentList extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        const comments=this.props.comments;</div><div class="line">        const commentList=comments.map((comment,id)=&gt;&lt;Comment comment=&#123;comment&#125; key=&#123;id&#125; handleCommentDelete=&#123;this.props.handleCommentDelete&#125;/&gt;)</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &#123;commentList&#125;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Comment extends React.Component &#123;</div><div class="line">    constructor(props) &#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.state=&#123;timeString:''&#125;;</div><div class="line">        this.handleDelete=this.handleDelete.bind(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillMount()&#123;</div><div class="line">        this._updateTimeString();</div><div class="line">        this.timer=setInterval(this._updateTimeString.bind(this),5000);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    _updateTimeString()&#123;</div><div class="line">        const duration=(+Date.now()-this.props.comment.createTime)/1000;</div><div class="line">        this.setState(&#123;</div><div class="line">            timeString:duration&gt;60?`$&#123;Math.round(duration/60)&#125;分钟前`:`$&#123;Math.round(duration)&#125;秒前`</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    componentWillUnmount()&#123;</div><div class="line">        clearInterval(this.timer);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleDelete(e)&#123;</div><div class="line">        this.props.handleCommentDelete(this.props.comment.id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;div className='comment'&gt;</div><div class="line">                &lt;div className='comment-user'&gt;</div><div class="line">                    &lt;span&gt;&#123;this.props.comment.username&#125;&lt;/span&gt;：</div><div class="line">                &lt;/div&gt;</div><div class="line">                &lt;p&gt;&#123;this.props.comment.content&#125;&lt;/p&gt;</div><div class="line">                &lt;span className='comment-createdtime'&gt;&#123;this.state.timeString&#125;&lt;/span&gt;</div><div class="line">                &lt;span className="comment-delete" onClick=&#123;this.handleDelete&#125;&gt;删除&lt;/span&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;CommentApp/&gt;,</div><div class="line">    document.querySelector('#app')</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p><a href="https://huzidaha.github.io/react-naive-book-examples/comment-app2/build/index.html" target="_blank" rel="external">在线预览</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/20/全栈Web开发之node-js总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1774,172 +1931,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/08/ES6-Classes总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zay">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I am Zay...">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/08/ES6-Classes总结/" itemprop="url">ES6 Classes总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-08T15:35:55+08:00">
-                2017-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/08/ES6-Classes总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/ES6-Classes总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Class声明"><a href="#Class声明" class="headerlink" title="Class声明"></a>Class声明</h1><p>es5的常规写法:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PersonType</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">PersonType.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> PersonType(<span class="string">"Nicholas"</span>);</div><div class="line">person.sayName(); <span class="comment">// outputs "Nicholas"</span></div><div class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> PersonType); <span class="comment">// true</span></div><div class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></div></pre></td></tr></table></figure></p>
-<p>es6添加了class关键字:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PersonClass</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(name)&#123;</div><div class="line">        <span class="keyword">this</span>.name=name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    sayName()&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> person=<span class="keyword">new</span> PersonClass(<span class="string">"Nicholas"</span>);</div><div class="line">person.sayName();</div><div class="line">person <span class="keyword">instanceof</span> PersonClass;  <span class="comment">// true</span></div><div class="line"><span class="keyword">typeof</span> PersonClass;  <span class="comment">// "function"</span></div><div class="line"><span class="keyword">typeof</span> PersonClass.prototype.sayName;  <span class="comment">// "function"</span></div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/08/ES6-Classes总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1984,7 +1980,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
