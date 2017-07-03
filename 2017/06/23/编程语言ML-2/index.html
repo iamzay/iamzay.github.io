@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="公开课,编程语言,SML," />
+  <meta name="keywords" content="SML,公开课,编程语言," />
 
 
 
@@ -91,13 +91,13 @@
 
 
 <meta name="description" content="构造复合类型的三种方法 Each-of: 一个复合类型可以包含同时很多种类型的值 One-of: 一个复合类型可以包含很多种类型中其中一种的值 Self-reference: 类型在定义时使用了其本身">
-<meta name="keywords" content="公开课,编程语言,SML">
+<meta name="keywords" content="SML,公开课,编程语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编程语言ML(2)">
 <meta property="og:url" content="http://zay.today/2017/06/23/编程语言ML-2/index.html">
 <meta property="og:site_name" content="我是郑安源">
 <meta property="og:description" content="构造复合类型的三种方法 Each-of: 一个复合类型可以包含同时很多种类型的值 One-of: 一个复合类型可以包含很多种类型中其中一种的值 Self-reference: 类型在定义时使用了其本身">
-<meta property="og:updated_time" content="2017-06-29T16:39:37.515Z">
+<meta property="og:updated_time" content="2017-06-29T16:42:03.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编程语言ML(2)">
 <meta name="twitter:description" content="构造复合类型的三种方法 Each-of: 一个复合类型可以包含同时很多种类型的值 One-of: 一个复合类型可以包含很多种类型中其中一种的值 Self-reference: 类型在定义时使用了其本身">
@@ -384,10 +384,10 @@
         <h1 id="构造复合类型的三种方法"><a href="#构造复合类型的三种方法" class="headerlink" title="构造复合类型的三种方法"></a>构造复合类型的三种方法</h1><ul>
 <li>Each-of: 一个复合类型可以包含同时很多种类型的值</li>
 <li>One-of: 一个复合类型可以包含很多种类型中其中一种的值</li>
-<li>Self-reference: 类型在定义时使用了其本身<a id="more"></a>
-<h1 id="Records"><a href="#Records" class="headerlink" title="Records"></a>Records</h1>这是一种Each-of类型:<figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;bar = (<span class="number">1</span>+<span class="number">2</span>,<span class="literal">true</span> <span class="keyword">andalso</span> <span class="literal">true</span>), foo = <span class="number">3</span>+<span class="number">4</span>, baz = (<span class="literal">false</span>,<span class="number">9</span>) &#125;</div></pre></td></tr></table></figure>
-</li>
+<li>Self-reference: 类型在定义时使用了其本身</li>
 </ul>
+<a id="more"></a>
+<h1 id="Records"><a href="#Records" class="headerlink" title="Records"></a>Records</h1><p>这是一种Each-of类型:<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;bar = (<span class="number">1</span>+<span class="number">2</span>,<span class="literal">true</span> <span class="keyword">andalso</span> <span class="literal">true</span>), foo = <span class="number">3</span>+<span class="number">4</span>, baz = (<span class="literal">false</span>,<span class="number">9</span>) &#125;</div></pre></td></tr></table></figure></p>
 <p>上面这个表达式为record类型，其类型为:<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;foo : <span class="built_in">int</span>, bar : <span class="built_in">int</span>*<span class="built_in">bool</span>, baz : <span class="built_in">bool</span>*<span class="built_in">int</span>&#125;</div></pre></td></tr></table></figure></p>
 <p>假设e是record表达式，使用#foo e获得其中名为foo的field值。<br>tuple是另外一种Each-of类型，其获取值时通过数字，tuple是语法糖。</p>
 <h1 id="Datatype"><a href="#Datatype" class="headerlink" title="Datatype"></a>Datatype</h1><p>datatype是一种One-of复合类型。<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">datatype</span> mytype= <span class="type">TwoInts</span> <span class="keyword">of</span> <span class="built_in">int</span>*<span class="built_in">int</span></div><div class="line">               | <span class="type">Str</span> <span class="keyword">of</span> <span class="built_in">string</span></div><div class="line">               | <span class="type">Pizza</span></div><div class="line"></div><div class="line"><span class="keyword">fun</span> f x =</div><div class="line">  <span class="keyword">case</span> x <span class="keyword">of</span></div><div class="line">      <span class="type">Pizza</span> =&gt; <span class="number">3</span></div><div class="line">    | <span class="type">TwoInts</span>(i1,i2) =&gt; i1+i2</div><div class="line">    | <span class="type">Str</span> s =&gt; <span class="type">String</span>.size s</div><div class="line"></div><div class="line"><span class="keyword">datatype</span> suit=<span class="type">Club</span>|<span class="type">Diamond</span>|<span class="type">Heart</span>|<span class="type">Spade</span></div><div class="line"></div><div class="line"><span class="keyword">datatype</span> id=<span class="type">StudentNum</span> <span class="keyword">of</span> <span class="built_in">int</span></div><div class="line">          | <span class="type">Name</span> <span class="keyword">of</span> <span class="built_in">string</span> * (<span class="built_in">string</span> <span class="built_in">option</span>) * <span class="built_in">string</span></div><div class="line"></div><div class="line"><span class="keyword">datatype</span> exp=<span class="type">Constant</span> <span class="keyword">of</span> <span class="built_in">int</span></div><div class="line">           | <span class="type">Negate</span> <span class="keyword">of</span> exp</div><div class="line">           | <span class="type">Add</span> <span class="keyword">of</span> exp*exp</div><div class="line">           | <span class="type">Multiply</span> <span class="keyword">of</span> exp*exp</div><div class="line"></div><div class="line"><span class="keyword">fun</span> eval e=</div><div class="line">  <span class="keyword">case</span> e <span class="keyword">of</span></div><div class="line">      <span class="type">Constant</span> i=&gt;i</div><div class="line">    | <span class="type">Negate</span> e2 =&gt; ~(eval e2)</div><div class="line">    | <span class="type">Add</span>(e1,e2) =&gt; (eval e1)+(eval e2)</div><div class="line">    | <span class="type">Multiply</span>(e1,e2) =&gt; (eval e1)*(eval e2)</div><div class="line"></div><div class="line"><span class="keyword">fun</span> number_of_adds e=</div><div class="line">  <span class="keyword">case</span> e <span class="keyword">of</span></div><div class="line">      <span class="type">Constant</span> =&gt; <span class="number">0</span></div><div class="line">    | <span class="type">Negate</span> e2 =&gt; number_of_adds e2</div><div class="line">    | <span class="type">Add</span>(e1,e2) =&gt; <span class="number">1</span>+number_of_adds(e1)+number_of_adds(e2)</div><div class="line">    | <span class="type">Multiply</span>(e1,e2) =&gt; number_of_adds(e1)+number_of_adds(e2)</div><div class="line"></div><div class="line"><span class="keyword">type</span> foo=<span class="built_in">int</span></div><div class="line"></div><div class="line">             <span class="comment">(* lists and options are Datatypes *)</span></div><div class="line"><span class="keyword">datatype</span> my_int_list=<span class="type">Empty</span></div><div class="line">                   | <span class="type">Cons</span> <span class="keyword">of</span> <span class="built_in">int</span>*my_int_list</div><div class="line"></div><div class="line"><span class="keyword">fun</span> append_mylist (xs,ys) =</div><div class="line">  <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">      <span class="type">Empty</span>=&gt;ys</div><div class="line">    | <span class="type">Cons</span>(x,xs') =&gt; <span class="type">Cons</span>(x,append_mylist(xs',ys))</div><div class="line"></div><div class="line"><span class="keyword">fun</span> inc_or_zero intoption =</div><div class="line">  <span class="keyword">case</span> intoption <span class="keyword">of</span></div><div class="line">      <span class="type">NONE</span>=&gt;<span class="number">0</span></div><div class="line">   | <span class="type">SOME</span> i =&gt; i+<span class="number">1</span></div><div class="line"></div><div class="line"><span class="keyword">fun</span> sum_list xs =</div><div class="line">  <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">      <span class="literal">[]</span> =&gt; <span class="number">0</span></div><div class="line">    | x::xs' =&gt; x+sum_list xs'</div><div class="line"></div><div class="line"><span class="keyword">fun</span> append (xs,ys) =</div><div class="line">  <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">      <span class="literal">[]</span>=&gt;ys</div><div class="line">   | x::xs' =&gt; x::append(xs',ys)</div></pre></td></tr></table></figure></p>
@@ -421,11 +421,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/SML/" rel="tag"># SML</a>
+          
             <a href="/tags/公开课/" rel="tag"># 公开课</a>
           
             <a href="/tags/编程语言/" rel="tag"># 编程语言</a>
-          
-            <a href="/tags/SML/" rel="tag"># SML</a>
           
         </div>
       
@@ -532,7 +532,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
