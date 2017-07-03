@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="在ML中使用and连接两个相互调用的函数，这样出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
+<meta name="description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
 <meta name="keywords" content="SML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SML中的mutual recursion">
 <meta property="og:url" content="http://zay.today/2017/07/02/mutual-recursion/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="在ML中使用and连接两个相互调用的函数，这样出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
-<meta property="og:updated_time" content="2017-07-03T08:40:31.757Z">
+<meta property="og:description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
+<meta property="og:updated_time" content="2017-07-03T08:45:17.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SML中的mutual recursion">
-<meta name="twitter:description" content="在ML中使用and连接两个相互调用的函数，这样出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
+<meta name="twitter:description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
 
 
 
@@ -381,7 +381,7 @@
       
 
       
-        <p>在ML中使用and连接两个相互调用的函数，这样出现找不到定义的情况。<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fun</span> match xs =</div><div class="line">  <span class="keyword">let</span> <span class="keyword">fun</span> s_need_one xs =</div><div class="line">        <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">            <span class="literal">[]</span>=&gt;<span class="literal">true</span></div><div class="line">          | <span class="number">1</span>::xs' =&gt; s_need_two xs'</div><div class="line">          | _ =&gt; <span class="literal">false</span></div><div class="line">      <span class="keyword">and</span> s_need_two xs =</div><div class="line">          <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">              <span class="literal">[]</span>=&gt;<span class="literal">false</span></div><div class="line">            | <span class="number">2</span>::xs' =&gt; s_need_one xs'</div><div class="line">            | _ =&gt; <span class="literal">false</span></div><div class="line">  <span class="keyword">in</span></div><div class="line">      s_need_one xs</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+        <p>在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fun</span> match xs =</div><div class="line">  <span class="keyword">let</span> <span class="keyword">fun</span> s_need_one xs =</div><div class="line">        <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">            <span class="literal">[]</span>=&gt;<span class="literal">true</span></div><div class="line">          | <span class="number">1</span>::xs' =&gt; s_need_two xs'</div><div class="line">          | _ =&gt; <span class="literal">false</span></div><div class="line">      <span class="keyword">and</span> s_need_two xs =</div><div class="line">          <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">              <span class="literal">[]</span>=&gt;<span class="literal">false</span></div><div class="line">            | <span class="number">2</span>::xs' =&gt; s_need_one xs'</div><div class="line">            | _ =&gt; <span class="literal">false</span></div><div class="line">  <span class="keyword">in</span></div><div class="line">      s_need_one xs</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
