@@ -1,0 +1,781 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,ES6," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="什么是PromisePromise代表了一个异步操作的结果，它有两种状态，unsettled和settled。其中setttled包含fulfilled和rejected，分别代表异步操作成功和失败。可以通过then和catch方法给异步操作的成功和失败两种状态提供hanlder。1234567891011121314// 异步操作返回一个promiselet promise = readFile">
+<meta name="keywords" content="JavaScript,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 Promise总结">
+<meta property="og:url" content="http://zay.today/2017/07/05/ES6-Promise总结/index.html">
+<meta property="og:site_name" content="我是郑安源">
+<meta property="og:description" content="什么是PromisePromise代表了一个异步操作的结果，它有两种状态，unsettled和settled。其中setttled包含fulfilled和rejected，分别代表异步操作成功和失败。可以通过then和catch方法给异步操作的成功和失败两种状态提供hanlder。1234567891011121314// 异步操作返回一个promiselet promise = readFile">
+<meta property="og:updated_time" content="2017-07-05T08:31:09.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6 Promise总结">
+<meta name="twitter:description" content="什么是PromisePromise代表了一个异步操作的结果，它有两种状态，unsettled和settled。其中setttled包含fulfilled和rejected，分别代表异步操作成功和失败。可以通过then和catch方法给异步操作的成功和失败两种状态提供hanlder。1234567891011121314// 异步操作返回一个promiselet promise = readFile">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zay.today/2017/07/05/ES6-Promise总结/"/>
+
+
+
+
+
+  <title>ES6 Promise总结 | 我是郑安源</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是郑安源</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/05/ES6-Promise总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是郑安源">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6 Promise总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T15:23:15+08:00">
+                2017-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/05/ES6-Promise总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/05/ES6-Promise总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是Promise</h1><p>Promise代表了一个异步操作的结果，它有两种状态，unsettled和settled。其中setttled包含fulfilled和rejected，分别代表异步操作成功和失败。可以通过then和catch方法给异步操作的成功和失败两种状态提供hanlder。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 异步操作返回一个promise</span></div><div class="line"><span class="keyword">let</span> promise = readFile(<span class="string">'example.txt'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 每个promise都有then操作，接受两个函数，分别对fufill和reject状态做出反应</span></div><div class="line">promise.then(<span class="function">(<span class="params">contents</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(contents);</div><div class="line">&#125;,(err)=&gt;&#123;</div><div class="line">    <span class="built_in">console</span>.log(err.message);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// catch方法只接受一个函数，对reject做出反应</span></div><div class="line">promise.catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(err.message);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>当promise进入settled，会将then和catch提供的handler放入一个独立的job queue。</p>
+<h1 id="构造Promise"><a href="#构造Promise" class="headerlink" title="构造Promise"></a>构造Promise</h1><p>需要给promise的构造函数提供一个函数参数executor，executor接受两个参数resolve和reject。当executor成功时会调用resolve，反之调用reject。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Node.js example</span></div><div class="line"><span class="keyword">let</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">filename</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>((<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">        <span class="comment">// trigger the asynchronous operation</span></div><div class="line">        fs.readFile(filename,&#123;<span class="attr">encoding</span>:<span class="string">"utf8"</span>&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err,contents</span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(err)&#123;</div><div class="line">                reject(err);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">            resolve(contents);</div><div class="line">        &#125;);</div><div class="line">    &#125;));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> promise=readFile(<span class="string">"example.txt"</span>);</div><div class="line"></div><div class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">contents</span>)</span>&#123;</div><div class="line">    <span class="comment">// fulfillment</span></div><div class="line">    <span class="built_in">console</span>.log(contents);</div><div class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="comment">// rejection</span></div><div class="line">    <span class="built_in">console</span>.log(err.message);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>调用readFile时，executor会立即执行。在executor中调用resolve或reject时，一个job会被加入到job queue用来resolve promise。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 考虑执行顺序</span></div><div class="line"><span class="keyword">let</span> promise=<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Promise'</span>);</div><div class="line">    resolve();</div><div class="line">&#125;);</div><div class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Resolved."</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hi!'</span>);</div></pre></td></tr></table></figure></p>
+<p>上面的代码输出顺序如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Promise</div><div class="line">Hi!</div><div class="line">Resolved</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>The reason is that fulfllment and rejection handlers are always<br>added to the end of the job queue after the executor has completed.</p>
+<h1 id="create-settled-Promise"><a href="#create-settled-Promise" class="headerlink" title="create settled Promise"></a>create settled Promise</h1><h2 id="Promise-resolve"><a href="#Promise-resolve" class="headerlink" title="Promise.resolve()"></a>Promise.resolve()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> promise=<span class="built_in">Promise</span>.resolve(<span class="number">42</span>);</div><div class="line">promise.then(<span class="function">(<span class="params">value</span>)=&gt;</span><span class="built_in">console</span>.log(<span class="number">42</span>));</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'hi'</span>);</div></pre></td></tr></table></figure>
+</blockquote>
+<p>注意依然是hi先输出，promise的handler将会被添加到job queue。</p>
+<h2 id="Promise-reject"><a href="#Promise-reject" class="headerlink" title="Promise.reject()"></a>Promise.reject()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// create a rejected promise</span></div><div class="line"><span class="keyword">let</span> rp=<span class="built_in">Promise</span>.reject(<span class="number">42</span>);</div><div class="line">rp.catch(<span class="function">(<span class="params">value</span>)=&gt;</span><span class="built_in">console</span>.log(value));</div></pre></td></tr></table></figure>
+<h1 id="Executor-Errors"><a href="#Executor-Errors" class="headerlink" title="Executor Errors"></a>Executor Errors</h1><p>executor如果抛出错误，则调用rejection handles。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">promise=<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,rejected</span>)=&gt;</span><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Explosion!'</span>));</div><div class="line">promise.catch(<span class="function">(<span class="params">err</span>)=&gt;</span><span class="built_in">console</span>.log(err.message));</div></pre></td></tr></table></figure></p>
+<p>如果没有给promise提供rejection handler，则无法得知executor发生了错误。浏览器提供了两个事件用来处理未被处理的rejections。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> rejected;</div><div class="line"><span class="built_in">window</span>.onunhandledrejection=<span class="function">(<span class="params">event</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(event.type);</div><div class="line">    <span class="built_in">console</span>.log(event.reason.message);</div><div class="line">    <span class="built_in">console</span>.log(event.promise==rejected);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onrejectionhandled=<span class="function">(<span class="params">event</span>)=&gt;</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(event.type);</div><div class="line">    <span class="built_in">console</span>.log(event.reason.message);</div><div class="line">    <span class="built_in">console</span>.log(event.promise==rejected);</div><div class="line">&#125;;</div><div class="line">rejected=<span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Explosion!'</span>));</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/05/webpack基础/" rel="next" title="webpack基础">
+                <i class="fa fa-chevron-left"></i> webpack基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">好好生活</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Promise"><span class="nav-number">1.</span> <span class="nav-text">什么是Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造Promise"><span class="nav-number">2.</span> <span class="nav-text">构造Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#create-settled-Promise"><span class="nav-number">3.</span> <span class="nav-text">create settled Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-resolve"><span class="nav-number">3.1.</span> <span class="nav-text">Promise.resolve()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-reject"><span class="nav-number">3.2.</span> <span class="nav-text">Promise.reject()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Executor-Errors"><span class="nav-number">4.</span> <span class="nav-text">Executor Errors</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zay.today/2017/07/05/ES6-Promise总结/';
+          this.page.identifier = '2017/07/05/ES6-Promise总结/';
+          this.page.title = 'ES6 Promise总结';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
