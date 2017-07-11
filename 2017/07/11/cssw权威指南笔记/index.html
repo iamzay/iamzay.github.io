@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="编程语言," />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="当我们在编程语言中引用一个变量时，这个变量对应的定义是什么？lexical scope和dynamic scope给出了不同的确定方法。当使用lexical scope时，只需考虑源代码的lexical structure，首先看当前的代码块内在引用变量之前有没有对这个变量的定义，若没有则检查外部的代码块。使用dynamic scope时，则是在运行时的栈帧中查找。若当前栈帧没有，则查看上一个栈帧">
-<meta name="keywords" content="编程语言">
+<meta name="description" content="第7章 基本视觉格式化以下两个章节的讨论都只针对块级元素 水平格式化 7个水平格式化属性和必须是父元素的宽度 这7个属性中，只有宽度和左、右外边距可以设置成auto，其他必须设置成特定的值或默认为0（border-width默认不是0） 若这三个属性中只有一个设置为auto，则其宽度用来弥补与包含块内容宽度的差距 若这三个属性都不为auto，则margin-rignt自动为auto  如果两个外边">
+<meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lexical scope和dynamic scope">
-<meta property="og:url" content="http://zay.today/2017/07/03/lexical-scope和dynamic-scope/index.html">
+<meta property="og:title" content="css权威指南笔记">
+<meta property="og:url" content="http://zay.today/2017/07/11/cssw权威指南笔记/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="当我们在编程语言中引用一个变量时，这个变量对应的定义是什么？lexical scope和dynamic scope给出了不同的确定方法。当使用lexical scope时，只需考虑源代码的lexical structure，首先看当前的代码块内在引用变量之前有没有对这个变量的定义，若没有则检查外部的代码块。使用dynamic scope时，则是在运行时的栈帧中查找。若当前栈帧没有，则查看上一个栈帧">
-<meta property="og:updated_time" content="2017-07-03T09:00:37.897Z">
+<meta property="og:description" content="第7章 基本视觉格式化以下两个章节的讨论都只针对块级元素 水平格式化 7个水平格式化属性和必须是父元素的宽度 这7个属性中，只有宽度和左、右外边距可以设置成auto，其他必须设置成特定的值或默认为0（border-width默认不是0） 若这三个属性中只有一个设置为auto，则其宽度用来弥补与包含块内容宽度的差距 若这三个属性都不为auto，则margin-rignt自动为auto  如果两个外边">
+<meta property="og:updated_time" content="2017-07-11T09:27:45.697Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lexical scope和dynamic scope">
-<meta name="twitter:description" content="当我们在编程语言中引用一个变量时，这个变量对应的定义是什么？lexical scope和dynamic scope给出了不同的确定方法。当使用lexical scope时，只需考虑源代码的lexical structure，首先看当前的代码块内在引用变量之前有没有对这个变量的定义，若没有则检查外部的代码块。使用dynamic scope时，则是在运行时的栈帧中查找。若当前栈帧没有，则查看上一个栈帧">
+<meta name="twitter:title" content="css权威指南笔记">
+<meta name="twitter:description" content="第7章 基本视觉格式化以下两个章节的讨论都只针对块级元素 水平格式化 7个水平格式化属性和必须是父元素的宽度 这7个属性中，只有宽度和左、右外边距可以设置成auto，其他必须设置成特定的值或默认为0（border-width默认不是0） 若这三个属性中只有一个设置为auto，则其宽度用来弥补与包含块内容宽度的差距 若这三个属性都不为auto，则margin-rignt自动为auto  如果两个外边">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zay.today/2017/07/03/lexical-scope和dynamic-scope/"/>
+  <link rel="canonical" href="http://zay.today/2017/07/11/cssw权威指南笔记/"/>
 
 
 
 
 
-  <title>lexical scope和dynamic scope | 我是郑安源</title>
+  <title>css权威指南笔记 | 我是郑安源</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/03/lexical-scope和dynamic-scope/">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/11/cssw权威指南笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zay">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">lexical scope和dynamic scope</h1>
+          <h1 class="post-title" itemprop="name headline">css权威指南笔记</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:47:14+08:00">
-                2017-07-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T11:03:10+08:00">
+                2017-07-11
               </time>
             
 
@@ -325,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机科学</span>
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
                   </a>
                 </span>
 
@@ -336,8 +336,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机科学/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
+                  <a href="/categories/Web/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -354,9 +354,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/03/lexical-scope和dynamic-scope/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/11/cssw权威指南笔记/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/03/lexical-scope和dynamic-scope/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/11/cssw权威指南笔记/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -381,8 +381,29 @@
       
 
       
-        <p>当我们在编程语言中引用一个变量时，这个变量对应的定义是什么？lexical scope和dynamic scope给出了不同的确定方法。当使用lexical scope时，只需考虑源代码的lexical structure，首先看当前的代码块内在引用变量之前有没有对这个变量的定义，若没有则检查外部的代码块。使用dynamic scope时，则是在运行时的栈帧中查找。若当前栈帧没有，则查看上一个栈帧，依此类推。考虑下面这段伪代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">program a() &#123;</div><div class="line">  x: integer; // &quot;x1&quot; in discussions below</div><div class="line">  x = 1;</div><div class="line"></div><div class="line">  procedure b() &#123;</div><div class="line">    x = 2; // &lt;-- which &quot;x&quot; do we write to?</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  procedure c() &#123;</div><div class="line">    x: integer; // &quot;x2&quot; in discussions below</div><div class="line">    b();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  c();</div><div class="line">  print x;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当使用lexical scope时写入x1，使用dynamic scope时写入x2。</p>
+        <h1 id="第7章-基本视觉格式化"><a href="#第7章-基本视觉格式化" class="headerlink" title="第7章 基本视觉格式化"></a>第7章 基本视觉格式化</h1><p>以下两个章节的讨论都只针对块级元素</p>
+<h2 id="水平格式化"><a href="#水平格式化" class="headerlink" title="水平格式化"></a>水平格式化</h2><ul>
+<li>7个水平格式化属性和必须是父元素的宽度</li>
+<li>这7个属性中，只有宽度和左、右外边距可以设置成auto，其他必须设置成特定的值或默认为0（border-width默认不是0）</li>
+<li>若这三个属性中只有一个设置为auto，则其宽度用来弥补与包含块内容宽度的差距</li>
+<li>若这三个属性都不为auto，则margin-rignt自动为auto </li>
+<li>如果两个外边距都设置为auto，width为特定值，则外边距相等，使元素水平居中</li>
+<li>若三个属性都设置为auto，则等同于默认情况，即两个外边距为0，width为auto</li>
+<li>替换块元素（图片）只有一个例外，如果width为auto，则元素宽度是内容的固有宽度</li>
+</ul>
+<h2 id="垂直格式化"><a href="#垂直格式化" class="headerlink" title="垂直格式化"></a>垂直格式化</h2><ul>
+<li>若高度设为固定值，且小于内容高度，高度并不会随之增加，此时可能出现滚动条，这取决于overflow属性</li>
+<li>垂直格式化也有7个属性，其和等于包含块的height</li>
+<li>这7个属性中只有height和margin可以设置为auto，其他必须为特定值或者默认为0（border可能为默认为medium）</li>
+<li>正常流中若将一个块元素的margin-top或margin-bottom设置为auto，它会自动计算为0，所以不能容易地实现垂直居中</li>
+<li>若包含块的高度为auto，则百分数高度会重置为auto</li>
+<li>包含块的高度为auto：<ul>
+<li>若包含块没有上下padding或者border，则包含块的height等于内部元素上下外边框之间的距离，此时子元素的外边距可能超出包含块</li>
+<li>若包含块有上下padding或者border，则包含块的height等于内部元素上下外边距之间的距离，此时子元素不会超出包含块</li>
+</ul>
+</li>
+<li>垂直外边距会合并，等于最大的那个外边距<h3 id="负外边距"><a href="#负外边距" class="headerlink" title="负外边距"></a>负外边距</h3></li>
+</ul>
 
       
     </div>
@@ -412,7 +433,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/编程语言/" rel="tag"># 编程语言</a>
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
           
         </div>
       
@@ -425,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/03/JS-DOM操作总结-1/" rel="next" title="JS DOM操作总结(1)">
-                <i class="fa fa-chevron-left"></i> JS DOM操作总结(1)
+              <a href="/2017/07/10/知乎live-前端工程师如何不断自我提升/" rel="next" title="知乎live:前端工程师如何不断自我提升">
+                <i class="fa fa-chevron-left"></i> 知乎live:前端工程师如何不断自我提升
               </a>
             
           </div>
@@ -434,10 +455,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/04/初探css-modules/" rel="prev" title="初探css modules">
-                初探css modules <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -494,8 +511,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -557,6 +583,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第7章-基本视觉格式化"><span class="nav-number">1.</span> <span class="nav-text">第7章 基本视觉格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#水平格式化"><span class="nav-number">1.1.</span> <span class="nav-text">水平格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垂直格式化"><span class="nav-number">1.2.</span> <span class="nav-text">垂直格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#负外边距"><span class="nav-number">1.2.1.</span> <span class="nav-text">负外边距</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -694,9 +736,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://zay.today/2017/07/03/lexical-scope和dynamic-scope/';
-          this.page.identifier = '2017/07/03/lexical-scope和dynamic-scope/';
-          this.page.title = 'lexical scope和dynamic scope';
+          this.page.url = 'http://zay.today/2017/07/11/cssw权威指南笔记/';
+          this.page.identifier = '2017/07/11/cssw权威指南笔记/';
+          this.page.title = 'css权威指南笔记';
         };
         var disqus = {
          load : function disqus(){
