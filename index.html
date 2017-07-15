@@ -304,7 +304,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T11:03:10+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T11:03:10+09:00">
                 2017-07-11
               </time>
             
@@ -406,7 +406,54 @@
 <li>若包含块有上下padding或者border，则包含块的height等于内部元素上下外边距之间的距离，此时子元素不会超出包含块</li>
 </ul>
 </li>
-<li>垂直外边距会合并，等于最大的那个外边距<h3 id="负外边距"><a href="#负外边距" class="headerlink" title="负外边距"></a>负外边距</h3></li>
+<li>垂直外边距会合并，等于最大的那个外边距</li>
+</ul>
+<h2 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h2><ul>
+<li>font-size的确定了各个em框的高度</li>
+<li>行间距只应用于非替换元素</li>
+<li>内容区：<ul>
+<li>对于非替换元素，内容区由各字符的em框一起构成</li>
+<li>对于替换元素，内容区是元素的固有高度加上可能由的各边距、边框</li>
+</ul>
+</li>
+<li>行内框：<ul>
+<li>非替换元素，为内容区加上行间距，即行高</li>
+<li>替换元素，等于内容区的高度</li>
+</ul>
+</li>
+<li>行框：包含行内框的最高点和最低点</li>
+<li>非替换元素的内边距、外边距和边框不会对生成的框产生垂直效果</li>
+<li>行内框根据其vertical-align属性值在行中垂直对齐</li>
+<li>对于块级元素中的匿名文本，可以想象成有一个虚拟的tag保住了它</li>
+<li>width和text-align不能应用于行内元素</li>
+</ul>
+<h3 id="行内非替换元素"><a href="#行内非替换元素" class="headerlink" title="行内非替换元素"></a>行内非替换元素</h3><ul>
+<li>行内框高度的确定：内容区加上上下行间距，这个行间距由(line-hight-font-size)得到，所以可能为负，此时行内框的高度小于内容框，文本可能和其他行的内容发生重叠</li>
+<li>vertical-align也可用于table-cell元素，top,bottom和middle最为常用</li>
+<li><p>设置line-height最好的方法是使用一个原始数字值，这个数会成为缩放因子并继承下去</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;<span class="attribute">line-height</span>:<span class="number">1.5</span>&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>外边距不会应用到行内非替换元素的顶端和底端</p>
+</li>
+</ul>
+<h3 id="行内替换元素"><a href="#行内替换元素" class="headerlink" title="行内替换元素"></a>行内替换元素</h3><ul>
+<li>行内替换元素的各边距和边框影响其行内框的高度</li>
+</ul>
+<h1 id="第8章-内边距、边框和外边距"><a href="#第8章-内边距、边框和外边距" class="headerlink" title="第8章 内边距、边框和外边距"></a>第8章 内边距、边框和外边距</h1><h2 id="宽度和高度"><a href="#宽度和高度" class="headerlink" title="宽度和高度"></a>宽度和高度</h2><ul>
+<li><p>下面的css将不会奏效，因为width和height不应用于行内非替换元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;<span class="attribute">height</span>:<span class="number">15px</span>;<span class="attribute">width</span>:<span class="number">60px</span>&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>margin、padding（各个方向，包括上下）的百分比相对于父元素的width</p>
+</li>
+<li>去掉标题和下一段之间的空间<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">h2</span> &#123;<span class="attribute">margin-bottom</span>:<span class="number">0</span>&#125;</div><div class="line"><span class="selector-tag">h2</span>+<span class="selector-tag">p</span> &#123;<span class="attribute">margin-top</span>:<span class="number">0</span>&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="第10章-浮动和定位"><a href="#第10章-浮动和定位" class="headerlink" title="第10章 浮动和定位"></a>第10章 浮动和定位</h1><h2 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h2><ul>
+<li>浮动元素会生成一个块级框，而不论这个元素本身是什么</li>
+<li>浮动元素的包含块是其最近的块级元素</li>
+<li>如果一个浮动元素在两个合并的外边距之间，放置这个浮动元素时就好像在两个元素之间有一个块级元素</li>
+<li>浮动元素会延伸，从而包含其所有后代浮动元素</li>
+<li></li>
 </ul>
 
           
@@ -482,7 +529,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T20:18:28+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T20:18:28+09:00">
                 2017-07-10
               </time>
             
@@ -612,7 +659,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T15:21:07+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T15:21:07+09:00">
                 2017-07-07
               </time>
             
@@ -772,7 +819,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T19:35:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T19:35:36+09:00">
                 2017-07-06
               </time>
             
@@ -933,7 +980,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T15:23:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T15:23:15+09:00">
                 2017-07-05
               </time>
             
@@ -1093,7 +1140,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T09:55:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T09:55:08+09:00">
                 2017-07-05
               </time>
             
@@ -1261,7 +1308,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T17:26:02+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T17:26:02+09:00">
                 2017-07-04
               </time>
             
@@ -1421,7 +1468,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:47:14+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:47:14+09:00">
                 2017-07-03
               </time>
             
@@ -1578,7 +1625,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:37:53+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:37:53+09:00">
                 2017-07-03
               </time>
             
@@ -1738,7 +1785,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:11:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:11:48+09:00">
                 2017-07-02
               </time>
             
