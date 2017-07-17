@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Guide," />
+  <meta name="keywords" content="Redux," />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="Link SPA单页应用传统的前端方式：浏览器从服务器请求html，当进入另外的链接时，再次向服务器请求html，这被称为服务器端渲染。在现代的SPA中，浏览器向服务器请求初始页面和脚本（包含框架、库、应用的代码），当用户进入其他url时，不会发生页面refresh。浏览器通过AJAX请求数据，js用这些数据来更新页面。链接的更改通过HTML 5 History API。">
-<meta name="keywords" content="Guide">
+<meta name="description" content="Action Creators我们可以直接给dispatch传递一个object作为参数，但使用action creator可以让我们在dispath前添加一些逻辑，比如当todos的数量超过一定值时拒绝dispatch:123456789101112131415function addToWithoutCheck(text)&amp;#123;  return &amp;#123;    type:&apos;ADD_T">
+<meta name="keywords" content="Redux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="遇到一篇很不错的前端指南">
-<meta property="og:url" content="http://zay.today/2017/07/06/遇到一篇很不错的前端指南/index.html">
+<meta property="og:title" content="Reducing Boilerplate">
+<meta property="og:url" content="http://zay.today/2017/07/17/Reducing-Boilerplate/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="Link SPA单页应用传统的前端方式：浏览器从服务器请求html，当进入另外的链接时，再次向服务器请求html，这被称为服务器端渲染。在现代的SPA中，浏览器向服务器请求初始页面和脚本（包含框架、库、应用的代码），当用户进入其他url时，不会发生页面refresh。浏览器通过AJAX请求数据，js用这些数据来更新页面。链接的更改通过HTML 5 History API。">
-<meta property="og:updated_time" content="2017-07-06T11:57:53.094Z">
+<meta property="og:description" content="Action Creators我们可以直接给dispatch传递一个object作为参数，但使用action creator可以让我们在dispath前添加一些逻辑，比如当todos的数量超过一定值时拒绝dispatch:123456789101112131415function addToWithoutCheck(text)&amp;#123;  return &amp;#123;    type:&apos;ADD_T">
+<meta property="og:updated_time" content="2017-07-17T12:01:28.375Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="遇到一篇很不错的前端指南">
-<meta name="twitter:description" content="Link SPA单页应用传统的前端方式：浏览器从服务器请求html，当进入另外的链接时，再次向服务器请求html，这被称为服务器端渲染。在现代的SPA中，浏览器向服务器请求初始页面和脚本（包含框架、库、应用的代码），当用户进入其他url时，不会发生页面refresh。浏览器通过AJAX请求数据，js用这些数据来更新页面。链接的更改通过HTML 5 History API。">
+<meta name="twitter:title" content="Reducing Boilerplate">
+<meta name="twitter:description" content="Action Creators我们可以直接给dispatch传递一个object作为参数，但使用action creator可以让我们在dispath前添加一些逻辑，比如当todos的数量超过一定值时拒绝dispatch:123456789101112131415function addToWithoutCheck(text)&amp;#123;  return &amp;#123;    type:&apos;ADD_T">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zay.today/2017/07/06/遇到一篇很不错的前端指南/"/>
+  <link rel="canonical" href="http://zay.today/2017/07/17/Reducing-Boilerplate/"/>
 
 
 
 
 
-  <title>遇到一篇很不错的前端指南 | 我是郑安源</title>
+  <title>Reducing Boilerplate | 我是郑安源</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/06/遇到一篇很不错的前端指南/">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/17/Reducing-Boilerplate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zay">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">遇到一篇很不错的前端指南</h1>
+          <h1 class="post-title" itemprop="name headline">Reducing Boilerplate</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T19:35:36+08:00">
-                2017-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T19:37:01+08:00">
+                2017-07-17
               </time>
             
 
@@ -336,8 +336,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Guide/" itemprop="url" rel="index">
-                    <span itemprop="name">Guide</span>
+                  <a href="/categories/Web/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -354,9 +354,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/06/遇到一篇很不错的前端指南/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/17/Reducing-Boilerplate/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/06/遇到一篇很不错的前端指南/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/17/Reducing-Boilerplate/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -381,48 +381,14 @@
       
 
       
-        <p><a href="https://github.com/grab/front-end-guide#fn1" target="_blank" rel="external">Link</a></p>
-<h1 id="SPA单页应用"><a href="#SPA单页应用" class="headerlink" title="SPA单页应用"></a>SPA单页应用</h1><p>传统的前端方式：浏览器从服务器请求html，当进入另外的链接时，再次向服务器请求html，这被称为服务器端渲染。在现代的SPA中，浏览器向服务器请求初始页面和脚本（包含框架、库、应用的代码），当用户进入其他url时，不会发生页面refresh。浏览器通过AJAX请求数据，js用这些数据来更新页面。链接的更改通过<em>HTML 5 History API</em>。<br><a id="more"></a><br>SAP的优点：</p>
-<ol>
-<li>链接跳转无需页面刷新</li>
-<li>更少http请求，相同的asset不用重复请求</li>
-<li>前后端分离，多种不同的前端可以对于同一个后端</li>
-</ol>
-<p>缺点：</p>
-<ol>
-<li>初次请求的数据很大（使用code spliting改善）</li>
-<li>后端需要将所有的请求重定向到一个entry point</li>
-<li>SEO不友好</li>
-</ol>
-<h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><ol>
-<li>React Developer Tools</li>
-</ol>
-<h1 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h1><ol>
-<li>Redux DevTools</li>
-<li>redux-thunk and redux-sage</li>
-</ol>
-<h1 id="CSS-Modules"><a href="#CSS-Modules" class="headerlink" title="CSS Modules"></a>CSS Modules</h1><h1 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h1><ol>
-<li>Jest</li>
-<li>Enzyme</li>
-</ol>
-<h1 id="Linting-JS"><a href="#Linting-JS" class="headerlink" title="Linting JS"></a>Linting JS</h1><ol>
-<li>ESLint</li>
-</ol>
-<h1 id="Linting-CSS"><a href="#Linting-CSS" class="headerlink" title="Linting CSS"></a>Linting CSS</h1><ol>
-<li>stylelint</li>
-</ol>
-<h1 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h1><ol>
-<li>Flow</li>
-<li>TypeScript</li>
-</ol>
-<h1 id="Package-Management"><a href="#Package-Management" class="headerlink" title="Package Management"></a>Package Management</h1><ol>
-<li>Yarn</li>
-<li>npm</li>
-</ol>
-<h1 id="Hosting"><a href="#Hosting" class="headerlink" title="Hosting"></a>Hosting</h1><ol>
-<li>Amazon S3</li>
-</ol>
-<h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1>
+        <h1 id="Action-Creators"><a href="#Action-Creators" class="headerlink" title="Action Creators"></a>Action Creators</h1><p>我们可以直接给dispatch传递一个object作为参数，但使用action creator可以让我们在dispath前添加一些逻辑，比如当todos的数量超过一定值时拒绝dispatch:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addToWithoutCheck</span>(<span class="params">text</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>:<span class="string">'ADD_TODO'</span>,</div><div class="line">    text</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> addTodo=<span class="function"><span class="params">text</span>=&gt;</span><span class="function">(<span class="params">dispatch,getState</span>)=&gt;</span>&#123;</div><div class="line">  <span class="keyword">if</span>(getState().todos.length===<span class="number">3</span>)&#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  dispatch(addTodoWithoutCheck(text))</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> addTodo;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="Generating-Action-Creators"><a href="#Generating-Action-Creators" class="headerlink" title="Generating Action Creators"></a>Generating Action Creators</h2><p>当发现自己写了很多像下面这样的action creators时，不妨考虑写一个函数生成这些函数:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params">text</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'ADD_TODO'</span>,</div><div class="line">    text</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">editTodo</span>(<span class="params">id, text</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'EDIT_TODO'</span>,</div><div class="line">    id,</div><div class="line">    text</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">removeTodo</span>(<span class="params">id</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: <span class="string">'REMOVE_TODO'</span>,</div><div class="line">    id</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以写一个函数来生成这些action creators:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> makeActionCreator=<span class="function">(<span class="params">type,...argNames</span>)=&gt;</span><span class="function">(<span class="params">...args</span>)=&gt;</span>&#123;</div><div class="line">  <span class="keyword">const</span> action=&#123;type&#125;;</div><div class="line">  argNames.forEach(<span class="function">(<span class="params">argName,index</span>)=&gt;</span>&#123;</div><div class="line">    action[argName]=args[index]</div><div class="line">  &#125;);</div><div class="line">  <span class="keyword">return</span> action;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在可以这样来使用上面的函数来构造action creators:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></div><div class="line"><span class="keyword">const</span> EDIT_TODO = <span class="string">'EDIT_TODO'</span></div><div class="line"><span class="keyword">const</span> REMOVE_TODO = <span class="string">'REMOVE_TODO'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> addTodo = makeActionCreator(ADD_TODO, <span class="string">'text'</span>)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> editTodo = makeActionCreator(EDIT_TODO, <span class="string">'id'</span>, <span class="string">'text'</span>)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> removeTodo = makeActionCreator(REMOVE_TODO, <span class="string">'id'</span>)</div></pre></td></tr></table></figure></p>
+<h2 id="Async-Action-Creators"><a href="#Async-Action-Creators" class="headerlink" title="Async Action Creators"></a>Async Action Creators</h2><p>我们经常要在组件的componentDidMount()等生命周期函数中请求数据，然后再用数据来渲染视图。可以将这样的逻辑写成一个异步的action creator，但这需要中间件的支持，比如redux thunk。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> loadPosts=<span class="function"><span class="params">userId</span>=&gt;</span><span class="function">(<span class="params">dispatch,getState</span>)=&gt;</span>&#123;</div><div class="line">  <span class="keyword">let</span> &#123;posts&#125;=getState();</div><div class="line">  <span class="keyword">if</span>(posts[userId])&#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  dispatch(&#123;<span class="attr">type</span>:<span class="string">'LOAD_POSTS_REQUEST'</span>,userId&#125;);</div><div class="line"></div><div class="line">  fetch(<span class="string">`http://myapi.com/users/<span class="subst">$&#123;userId&#125;</span>/posts`</span>).then(</div><div class="line">    <span class="function"><span class="params">response</span>=&gt;</span>dispatch(&#123;</div><div class="line">      <span class="attr">type</span>:<span class="string">'LOAD_POSTS_SUCCESS'</span>,</div><div class="line">      userId,</div><div class="line">      responese</div><div class="line">    &#125;),</div><div class="line">    error=&gt;dispatch(&#123;</div><div class="line">      <span class="attr">type</span>:<span class="string">'LOAD_POSTS_FAILUER'</span>,</div><div class="line">      userId,</div><div class="line">      error</div><div class="line">    &#125;)</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意action creator现在是一个返回函数的函数，且其返回的函数接受两个参数dispath和getStat。</p>
+
       
     </div>
 
@@ -451,7 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Guide/" rel="tag"># Guide</a>
+            <a href="/tags/Redux/" rel="tag"># Redux</a>
           
         </div>
       
@@ -464,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/05/ES6-Promise总结/" rel="next" title="ES6 Promise总结">
-                <i class="fa fa-chevron-left"></i> ES6 Promise总结
+              <a href="/2017/07/15/CSS权威指南第三版总结/" rel="next" title="CSS权威指南第三版总结">
+                <i class="fa fa-chevron-left"></i> CSS权威指南第三版总结
               </a>
             
           </div>
@@ -473,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/07/Redux学习-Compose-Reducer/" rel="prev" title="Redux学习: Compose Reducer">
-                Redux学习: Compose Reducer <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA单页应用"><span class="nav-number">1.</span> <span class="nav-text">SPA单页应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React"><span class="nav-number">2.</span> <span class="nav-text">React</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux"><span class="nav-number">3.</span> <span class="nav-text">Redux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS-Modules"><span class="nav-number">4.</span> <span class="nav-text">CSS Modules</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing"><span class="nav-number">5.</span> <span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linting-JS"><span class="nav-number">6.</span> <span class="nav-text">Linting JS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linting-CSS"><span class="nav-number">7.</span> <span class="nav-text">Linting CSS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Types"><span class="nav-number">8.</span> <span class="nav-text">Types</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Package-Management"><span class="nav-number">9.</span> <span class="nav-text">Package Management</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hosting"><span class="nav-number">10.</span> <span class="nav-text">Hosting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deployment"><span class="nav-number">11.</span> <span class="nav-text">Deployment</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Action-Creators"><span class="nav-number">1.</span> <span class="nav-text">Action Creators</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Generating-Action-Creators"><span class="nav-number">1.1.</span> <span class="nav-text">Generating Action Creators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async-Action-Creators"><span class="nav-number">1.2.</span> <span class="nav-text">Async Action Creators</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -758,9 +720,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://zay.today/2017/07/06/遇到一篇很不错的前端指南/';
-          this.page.identifier = '2017/07/06/遇到一篇很不错的前端指南/';
-          this.page.title = '遇到一篇很不错的前端指南';
+          this.page.url = 'http://zay.today/2017/07/17/Reducing-Boilerplate/';
+          this.page.identifier = '2017/07/17/Reducing-Boilerplate/';
+          this.page.title = 'Reducing Boilerplate';
         };
         var disqus = {
          load : function disqus(){
