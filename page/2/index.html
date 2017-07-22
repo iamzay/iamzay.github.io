@@ -273,6 +273,163 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/03/lexical-scope和dynamic-scope/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是郑安源">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/03/lexical-scope和dynamic-scope/" itemprop="url">lexical scope和dynamic scope</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T16:47:14+08:00">
+                2017-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/03/lexical-scope和dynamic-scope/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/03/lexical-scope和dynamic-scope/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当我们在编程语言中引用一个变量时，这个变量对应的定义是什么？lexical scope和dynamic scope给出了不同的确定方法。当使用lexical scope时，只需考虑源代码的lexical structure，首先看当前的代码块内在引用变量之前有没有对这个变量的定义，若没有则检查外部的代码块。使用dynamic scope时，则是在运行时的栈帧中查找。若当前栈帧没有，则查看上一个栈帧，依此类推。考虑下面这段伪代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">program a() &#123;</div><div class="line">  x: integer; // &quot;x1&quot; in discussions below</div><div class="line">  x = 1;</div><div class="line"></div><div class="line">  procedure b() &#123;</div><div class="line">    x = 2; // &lt;-- which &quot;x&quot; do we write to?</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  procedure c() &#123;</div><div class="line">    x: integer; // &quot;x2&quot; in discussions below</div><div class="line">    b();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  c();</div><div class="line">  print x;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当使用lexical scope时写入x1，使用dynamic scope时写入x2。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/03/JS-DOM操作总结-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1738,165 +1895,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/05/27/实现React-redux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zay">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我是郑安源">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/27/实现React-redux/" itemprop="url">实现React-redux</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-27T09:02:33+08:00">
-                2017-05-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/27/实现React-redux/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/27/实现React-redux/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这篇文章的代码来自<a href="http://huziketang.com/books/react/lesson34" target="_blank" rel="external">胡子大哈的React的小书</a></p>
-<h1 id="实现Redux"><a href="#实现Redux" class="headerlink" title="实现Redux"></a>实现Redux</h1><h2 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h2><p>这个函数接受一个命名reducer的函数，返回一个对象，这个对象里包含了能对状态进行的操作:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> &#123; getState, dispatch, subscribe &#125;</div></pre></td></tr></table></figure></p>
-<p>其中getState返回状态，dispatch接受一个对状态的action，用来修改状态，subscribe接受函数，将在状态改变（调用dispatch）时调用这些函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> state=<span class="literal">null</span>;</div><div class="line">    <span class="keyword">let</span> listeners=[];</div><div class="line">    <span class="keyword">let</span> getState=<span class="function"><span class="params">()</span>=&gt;</span>state;</div><div class="line">    <span class="keyword">let</span> subscribe=<span class="function">(<span class="params">listener</span>)=&gt;</span>listeners.push(listener);</div><div class="line">    <span class="keyword">let</span> dispatch=<span class="function">(<span class="params">action</span>)=&gt;</span>&#123;</div><div class="line">        reducer(state,action);</div><div class="line">        listeners.forEach(<span class="function">(<span class="params">listener</span>)=&gt;</span>listener());</div><div class="line">    &#125;</div><div class="line">    dispatch(&#123;&#125;);</div><div class="line">    <span class="keyword">return</span> &#123;getState,dispatch,subscribe&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h2><p>这个函数接受state和action两个参数，返回一个新的state。当传入的state为null时，将初始化state，否则根据action改变state。reducer必须是一个纯函数，且如果改动state，其必须返回一个新的state。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">themeReducer</span> (<span class="params">state, action</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (!state) <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">themeName</span>: <span class="string">'Red Theme'</span>,</div><div class="line">    <span class="attr">themeColor</span>: <span class="string">'red'</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">switch</span> (action.type) &#123;</div><div class="line">    <span class="keyword">case</span> <span class="string">'UPATE_THEME_NAME'</span>:</div><div class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">themeName</span>: action.themeName &#125;</div><div class="line">    <span class="keyword">case</span> <span class="string">'UPATE_THEME_COLOR'</span>:</div><div class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">themeColor</span>: action.themeColor &#125;</div><div class="line">    <span class="keyword">default</span>:</div><div class="line">      <span class="keyword">return</span> state</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> store = createStore(themeReducer)</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1946,7 +1944,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
