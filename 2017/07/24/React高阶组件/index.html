@@ -1,0 +1,778 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="高级组件 多个组件都需要某个功能，而这个功能和界面没有关系，使用高阶组件添加这个功能  高阶组件是一个函数，它接受一个组件类（非实例）返回一个新的组件，这个组件有了新的功能。下面是一个例子，返回的组件拒绝了user这个属性：12345678function removeUserProp(WrappedComponent) &amp;#123;    return class WrappingCompone">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React高阶组件">
+<meta property="og:url" content="http://zay.today/2017/07/24/React高阶组件/index.html">
+<meta property="og:site_name" content="我是郑安源">
+<meta property="og:description" content="高级组件 多个组件都需要某个功能，而这个功能和界面没有关系，使用高阶组件添加这个功能  高阶组件是一个函数，它接受一个组件类（非实例）返回一个新的组件，这个组件有了新的功能。下面是一个例子，返回的组件拒绝了user这个属性：12345678function removeUserProp(WrappedComponent) &amp;#123;    return class WrappingCompone">
+<meta property="og:updated_time" content="2017-07-24T14:42:20.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React高阶组件">
+<meta name="twitter:description" content="高级组件 多个组件都需要某个功能，而这个功能和界面没有关系，使用高阶组件添加这个功能  高阶组件是一个函数，它接受一个组件类（非实例）返回一个新的组件，这个组件有了新的功能。下面是一个例子，返回的组件拒绝了user这个属性：12345678function removeUserProp(WrappedComponent) &amp;#123;    return class WrappingCompone">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zay.today/2017/07/24/React高阶组件/"/>
+
+
+
+
+
+  <title>React高阶组件 | 我是郑安源</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是郑安源</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/24/React高阶组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是郑安源">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React高阶组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T21:16:27+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/24/React高阶组件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/24/React高阶组件/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="高级组件"><a href="#高级组件" class="headerlink" title="高级组件"></a>高级组件</h1><blockquote>
+<p>多个组件都需要某个功能，而这个功能和界面没有关系，使用高阶组件添加这个功能</p>
+</blockquote>
+<p>高阶组件是一个函数，它接受一个组件类（非实例）返回一个新的组件，这个组件有了新的功能。下面是一个例子，返回的组件拒绝了user这个属性：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeUserProp</span>(<span class="params">WrappedComponent</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WrappingComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">        render() &#123;</div><div class="line">            <span class="keyword">const</span> &#123;user,...otherProps&#125;=<span class="keyword">this</span>.props;</div><div class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...otherProps</span>&#125; /&gt;</span></span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="代理方式的高阶组件"><a href="#代理方式的高阶组件" class="headerlink" title="代理方式的高阶组件"></a>代理方式的高阶组件</h2><h3 id="操纵prop"><a href="#操纵prop" class="headerlink" title="操纵prop"></a>操纵prop</h3><p>下面是一个给组件增加属性的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> addNewProps=<span class="function">(<span class="params">WrappedComponent,newProps</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WrappingComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">        render() &#123;</div><div class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...this.props</span>&#125; &#123;<span class="attr">...newProps</span>&#125; /&gt;</span></span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="抽取状态"><a href="#抽取状态" class="headerlink" title="抽取状态"></a>抽取状态</h3><p>下面实现了一个简单的connect：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params">mapStateToProps,mapDispatchToProps</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">WrappedComponent</span>) </span>&#123;</div><div class="line">        <span class="class"><span class="keyword">class</span> <span class="title">HOCComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">            <span class="keyword">constructor</span>(...args)&#123;</div><div class="line">                <span class="keyword">super</span>(...args);</div><div class="line">                <span class="keyword">this</span>.onChange=<span class="keyword">this</span>.onChange.bind(<span class="keyword">this</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            componentDidMount()&#123;</div><div class="line">                <span class="keyword">this</span>.context.store.subscribe(<span class="keyword">this</span>.onChange);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            componentWillUnmount()&#123;</div><div class="line">                <span class="keyword">this</span>.context.store.unsubscribe(<span class="keyword">this</span>.onChange);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            render()&#123;</div><div class="line">                <span class="keyword">const</span> store=<span class="keyword">this</span>.context.store;</div><div class="line">                <span class="keyword">const</span> newProps=&#123;</div><div class="line">                    ...this.props,</div><div class="line">                    ...mapStateToProps(store.getState()),</div><div class="line">                    ...mapDispatchToProps(store.dispatch)</div><div class="line">                &#125;;</div><div class="line">                <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...newProps</span>&#125; /&gt;</span></span></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        HOCComponent.contextTypes=&#123;</div><div class="line">            store:React.PropTypes.object</div><div class="line">        &#125;</div><div class="line">        return HOCComponent;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="包装组件"><a href="#包装组件" class="headerlink" title="包装组件"></a>包装组件</h3><p>可以将包装组件和其他组件一起渲染，可以给包装组件添加样式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> styleHOC=<span class="function">(<span class="params">WrappedComponent,style</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">HOCComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">        render()&#123;</div><div class="line">            <span class="keyword">return</span> (</div><div class="line">                <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;style&#125;</span>&gt;</span></span></div><div class="line">                    <span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...this.props</span>&#125;/&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            )</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">const style=&#123;color:"red"&#125;;</div><div class="line">const NewComponent=styleHOC(DemoComponent,style);</div></pre></td></tr></table></figure></p>
+<h2 id="继承方式的高阶组件"><a href="#继承方式的高阶组件" class="headerlink" title="继承方式的高阶组件"></a>继承方式的高阶组件</h2><p>用继承方式实现一遍removeUserProp：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeUserProp</span>(<span class="params">WrappedComponent</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">NewComponent</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</div><div class="line">        render()&#123;</div><div class="line">            <span class="keyword">const</span> &#123;user,...otherProps&#125;=<span class="keyword">this</span>.props;</div><div class="line">            <span class="keyword">this</span>.props=otherProps;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.render();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>继承方式直接继承了杯包裹组件的生命周期函数，其关键在于至少要重写render函数，并在这个函数中使用super.render()调用父类的相应函数。继承方式可以重写组件生命周期函数，这是与代理方式的不同：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> onlyForLoggedinHOC=<span class="function"><span class="params">WrappedComponent</span>=&gt;</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">NewComponent</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</div><div class="line">        render()&#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.props.loggedIn)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">super</span>.render();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="以函数为子组件"><a href="#以函数为子组件" class="headerlink" title="以函数为子组件"></a>以函数为子组件</h2><p>高阶组件的缺点在于对原组件的props有了固化的要求。如果原组件原本不接受包裹组件新传入的props，就无法应用。以函数为子组件的模式克服了这个局限。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddUserProp</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    render() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.props.children(<span class="string">"username"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> component=<span class="xml"><span class="tag">&lt;<span class="name">AddUserProp</span>&gt;</span>&#123;user=&gt;<span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#125;<span class="tag">&lt;/<span class="name">AddUserProp</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>下面的代码将倒计时的逻辑写在高阶组件里，需要使用这个逻辑的组件作为高阶组件的children放进去：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CountDown</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Componet</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(...args)&#123;</div><div class="line">        <span class="keyword">super</span>(...args);</div><div class="line">        <span class="keyword">this</span>.state=&#123;<span class="attr">count</span>:<span class="keyword">this</span>.props.startCount&#125;;</div><div class="line">    &#125;</div><div class="line">    componentDidMount()&#123;</div><div class="line">        <span class="keyword">this</span>.intervalHandle=setInterval(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">            <span class="keyword">const</span> newCount=<span class="keyword">this</span>.state.count<span class="number">-1</span>;</div><div class="line">            <span class="keyword">if</span>(newCount&gt;=<span class="number">0</span>)&#123;</div><div class="line">                <span class="keyword">this</span>.setState(&#123;<span class="attr">count</span>:newCount&#125;);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">window</span>.clearInterval(<span class="keyword">this</span>.intervalHandle);</div><div class="line">            &#125;</div><div class="line">        &#125;,<span class="number">1000</span>);</div><div class="line">    &#125;</div><div class="line">    componentWillUnmount()&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.intervalHandle)&#123;</div><div class="line">            <span class="built_in">window</span>.clearInterval(<span class="keyword">this</span>.intervalHandle);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.props.children(<span class="keyword">this</span>.state.count);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;CountDown startCount=&#123;<span class="number">10</span>&#125;&gt;</div><div class="line">&#123;</div><div class="line">    (count)=&gt;<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">&#125;</div><div class="line">&lt;<span class="regexp">/CountDown&gt;</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/23/CSS中的宽度/" rel="next" title="CSS中的宽度">
+                <i class="fa fa-chevron-left"></i> CSS中的宽度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">好好生活</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高级组件"><span class="nav-number">1.</span> <span class="nav-text">高级组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理方式的高阶组件"><span class="nav-number">1.1.</span> <span class="nav-text">代理方式的高阶组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操纵prop"><span class="nav-number">1.1.1.</span> <span class="nav-text">操纵prop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽取状态"><span class="nav-number">1.1.2.</span> <span class="nav-text">抽取状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包装组件"><span class="nav-number">1.1.3.</span> <span class="nav-text">包装组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承方式的高阶组件"><span class="nav-number">1.2.</span> <span class="nav-text">继承方式的高阶组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以函数为子组件"><span class="nav-number">1.3.</span> <span class="nav-text">以函数为子组件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zay.today/2017/07/24/React高阶组件/';
+          this.page.identifier = '2017/07/24/React高阶组件/';
+          this.page.title = 'React高阶组件';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
