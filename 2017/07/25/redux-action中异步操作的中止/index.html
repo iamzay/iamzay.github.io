@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="SML," />
+  <meta name="keywords" content="Redux," />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
-<meta name="keywords" content="SML">
+<meta name="description" content="通过react-thunk这个中间件，我们可以在action creator中进行异步操作，并在异步操作成功时dispatch action。假设我们在较短的时间内发送了多次请求，且只希望最后一次异步请求生效，该怎么做呢？我们无法将请求中止（假设用fetch是没有办法的），但是我们可以通过阻止dispatch action来阻止对状态的修改。思路是先设置一个初始值global_cnt，每次进入这个">
+<meta name="keywords" content="Redux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SML中的mutual recursion">
-<meta property="og:url" content="http://zay.today/2017/07/02/mutual-recursion/index.html">
+<meta property="og:title" content="redux action creator中异步操作的中止">
+<meta property="og:url" content="http://zay.today/2017/07/25/redux-action中异步操作的中止/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
-<meta property="og:updated_time" content="2017-07-03T08:45:17.150Z">
+<meta property="og:description" content="通过react-thunk这个中间件，我们可以在action creator中进行异步操作，并在异步操作成功时dispatch action。假设我们在较短的时间内发送了多次请求，且只希望最后一次异步请求生效，该怎么做呢？我们无法将请求中止（假设用fetch是没有办法的），但是我们可以通过阻止dispatch action来阻止对状态的修改。思路是先设置一个初始值global_cnt，每次进入这个">
+<meta property="og:updated_time" content="2017-07-25T14:21:40.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SML中的mutual recursion">
-<meta name="twitter:description" content="在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。1234567891011121314fun match xs =  let fun s_need_one xs =        case xs of            []=&amp;gt;true          | 1::xs&apos; =&amp;gt; s_need_two xs&apos;          | _ =&amp;gt; false">
+<meta name="twitter:title" content="redux action creator中异步操作的中止">
+<meta name="twitter:description" content="通过react-thunk这个中间件，我们可以在action creator中进行异步操作，并在异步操作成功时dispatch action。假设我们在较短的时间内发送了多次请求，且只希望最后一次异步请求生效，该怎么做呢？我们无法将请求中止（假设用fetch是没有办法的），但是我们可以通过阻止dispatch action来阻止对状态的修改。思路是先设置一个初始值global_cnt，每次进入这个">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zay.today/2017/07/02/mutual-recursion/"/>
+  <link rel="canonical" href="http://zay.today/2017/07/25/redux-action中异步操作的中止/"/>
 
 
 
 
 
-  <title>SML中的mutual recursion | 我是郑安源</title>
+  <title>redux action creator中异步操作的中止 | 我是郑安源</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/02/mutual-recursion/">
+    <link itemprop="mainEntityOfPage" href="http://zay.today/2017/07/25/redux-action中异步操作的中止/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zay">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SML中的mutual recursion</h1>
+          <h1 class="post-title" itemprop="name headline">redux action creator中异步操作的中止</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:11:48+08:00">
-                2017-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T21:57:24+08:00">
+                2017-07-25
               </time>
             
 
@@ -325,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机科学</span>
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
                   </a>
                 </span>
 
@@ -336,8 +336,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机科学/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
+                  <a href="/categories/Web/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -354,9 +354,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/02/mutual-recursion/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/25/redux-action中异步操作的中止/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/02/mutual-recursion/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/25/redux-action中异步操作的中止/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -381,7 +381,7 @@
       
 
       
-        <p>在ML中使用and连接两个相互调用的函数，这样不会出现找不到定义的情况。<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fun</span> match xs =</div><div class="line">  <span class="keyword">let</span> <span class="keyword">fun</span> s_need_one xs =</div><div class="line">        <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">            <span class="literal">[]</span>=&gt;<span class="literal">true</span></div><div class="line">          | <span class="number">1</span>::xs' =&gt; s_need_two xs'</div><div class="line">          | _ =&gt; <span class="literal">false</span></div><div class="line">      <span class="keyword">and</span> s_need_two xs =</div><div class="line">          <span class="keyword">case</span> xs <span class="keyword">of</span></div><div class="line">              <span class="literal">[]</span>=&gt;<span class="literal">false</span></div><div class="line">            | <span class="number">2</span>::xs' =&gt; s_need_one xs'</div><div class="line">            | _ =&gt; <span class="literal">false</span></div><div class="line">  <span class="keyword">in</span></div><div class="line">      s_need_one xs</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+        <p>通过react-thunk这个中间件，我们可以在action creator中进行异步操作，并在异步操作成功时dispatch action。假设我们在较短的时间内发送了多次请求，且只希望最后一次异步请求生效，该怎么做呢？我们无法将请求中止（假设用fetch是没有办法的），但是我们可以通过阻止dispatch action来阻止对状态的修改。<br>思路是先设置一个初始值global_cnt，每次进入这个带有异步操作的action creator时都++global_cnt并将其值赋给一个本地的local_cnt，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> global_cnt=<span class="number">0</span>;</div><div class="line"><span class="keyword">const</span> fetchWeatcher=<span class="function"><span class="params">()</span>=&gt;</span><span class="function"><span class="params">dispatch</span>=&gt;</span>&#123;</div><div class="line">    <span class="keyword">const</span> local_cnt=++global_cnt;</div><div class="line">    <span class="keyword">const</span> dispatchIfValid=<span class="function"><span class="params">action</span>=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(local_cnt===global_cnt)&#123;</div><div class="line">            dispatch(action);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    dispatchIfValid(fetchWeatcherStart());</div><div class="line">    <span class="keyword">const</span> apiUrl=<span class="string">"/api/xxx"</span>;</div><div class="line">    fetch(apiUrl).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(res.status!==<span class="number">200</span>)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"error!"</span>)</div><div class="line">        &#125;;</div><div class="line">        res.json().then(<span class="function">(<span class="params">json</span>)=&gt;</span>&#123;</div><div class="line">            dispatchIfValid(fetchWeatcherSuccess(json.data));</div><div class="line">        &#125;).catch(error)=&gt;&#123;</div><div class="line">            dispatchIfValid(fetchWeatcherFailure(error));</div><div class="line">        &#125;</div><div class="line">    &#125;).catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</div><div class="line">        dispatchIfValid(fetchWeatcherFailure(error));</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -411,7 +411,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SML/" rel="tag"># SML</a>
+            <a href="/tags/Redux/" rel="tag"># Redux</a>
           
         </div>
       
@@ -424,8 +424,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/30/JS高级程序设计源码/" rel="next" title="JS高级程序设计源码">
-                <i class="fa fa-chevron-left"></i> JS高级程序设计源码
+              <a href="/2017/07/24/React高阶组件/" rel="next" title="React高阶组件">
+                <i class="fa fa-chevron-left"></i> React高阶组件
               </a>
             
           </div>
@@ -433,10 +433,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/03/JS-DOM操作总结-1/" rel="prev" title="JS DOM操作总结(1)">
-                JS DOM操作总结(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -693,9 +689,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://zay.today/2017/07/02/mutual-recursion/';
-          this.page.identifier = '2017/07/02/mutual-recursion/';
-          this.page.title = 'SML中的mutual recursion';
+          this.page.url = 'http://zay.today/2017/07/25/redux-action中异步操作的中止/';
+          this.page.identifier = '2017/07/25/redux-action中异步操作的中止/';
+          this.page.title = 'redux action creator中异步操作的中止';
         };
         var disqus = {
          load : function disqus(){
