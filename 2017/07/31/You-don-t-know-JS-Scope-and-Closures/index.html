@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://zay.today/2017/07/31/You-don-t-know-JS-Scope-and-Closures/index.html">
 <meta property="og:site_name" content="我是郑安源">
 <meta property="og:description" content="匿名函数表达式没有可以在stack trace中显示的名字，建议总是使用有名字的：123setTimeout(function timeoutHandler()&amp;#123;    // ...&amp;#125;,100); 块作用域try/catch很多人以为JS在ES6以前不存在block scope，其实不是。catch语句中的err就只能在catch块中被引用：12345try&amp;#123;">
-<meta property="og:updated_time" content="2017-07-31T13:02:25.537Z">
+<meta property="og:updated_time" content="2017-07-31T13:03:05.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="You don&#39;t know JS: Scope and Closures">
 <meta name="twitter:description" content="匿名函数表达式没有可以在stack trace中显示的名字，建议总是使用有名字的：123setTimeout(function timeoutHandler()&amp;#123;    // ...&amp;#125;,100); 块作用域try/catch很多人以为JS在ES6以前不存在block scope，其实不是。catch语句中的err就只能在catch块中被引用：12345try&amp;#123;">
@@ -383,6 +383,7 @@
       
         <p>匿名函数表达式没有可以在stack trace中显示的名字，建议总是使用有名字的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timeoutHandler</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;,<span class="number">100</span>);</div></pre></td></tr></table></figure></p>
 <h1 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h1><h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try/catch"></a>try/catch</h2><p>很多人以为JS在ES6以前不存在block scope，其实不是。catch语句中的err就只能在catch块中被引用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    <span class="literal">undefined</span>();</div><div class="line">&#125; <span class="keyword">catch</span>(err)&#123;</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h2 id="let"><a href="#let" class="headerlink" title="let"></a>let</h2><p>使用let声明的变量只能在所处的{}内使用:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">    &#123; <span class="comment">// &lt;-- explicit block</span></div><div class="line">        <span class="keyword">let</span> foo=<span class="number">1</span>;</div><div class="line">        <span class="built_in">console</span>.log(foo);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>let声明不会提升到{}顶部。</p>
 <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>在某些语言里，函数运行完毕后其内部声明的变量就被销毁了（比如C语言）。但在JS里这些变量都还保存着，当在这个函数内部定义的函数运行时（不管运行在何处），可以引用那些变量。下面的情况确切来说不是闭包：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> a=<span class="number">2</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(a);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    bar();</div><div class="line">&#125;</div><div class="line"></div><div class="line">foo();</div></pre></td></tr></table></figure></p>
@@ -446,6 +447,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/02/有关Promise-resolve/" rel="prev" title="有关Promise.resolve()">
+                有关Promise.resolve() <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -527,7 +532,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
