@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise thenable当传递一个thenable作为参数时，Promise会使用then属性代表的函数构造一个promise返回：```javascriptlet p={ then:function(c">
+<meta name="description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise,non-thenable当传递一个普通值时，函数返回一个处于fulfilled状态的promise，且值为这个普通值。 non-promise thenable当传递一个thenable作为参数时">
 <meta name="keywords" content="ES6,Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="有关Promise.resolve()">
 <meta property="og:url" content="http://zay.today/2017/08/02/有关Promise-resolve/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise thenable当传递一个thenable作为参数时，Promise会使用then属性代表的函数构造一个promise返回：```javascriptlet p={ then:function(c">
-<meta property="og:updated_time" content="2017-08-02T13:35:38.485Z">
+<meta property="og:description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise,non-thenable当传递一个普通值时，函数返回一个处于fulfilled状态的promise，且值为这个普通值。 non-promise thenable当传递一个thenable作为参数时">
+<meta property="og:updated_time" content="2017-08-02T13:39:24.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有关Promise.resolve()">
-<meta name="twitter:description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise thenable当传递一个thenable作为参数时，Promise会使用then属性代表的函数构造一个promise返回：```javascriptlet p={ then:function(c">
+<meta name="twitter:description" content="Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。  Promise当传递一个Promise作为参数时，函数将其原样返回。 non-promise,non-thenable当传递一个普通值时，函数返回一个处于fulfilled状态的promise，且值为这个普通值。 non-promise thenable当传递一个thenable作为参数时">
 
 
 
@@ -384,13 +384,11 @@
         <p>Promise.resolve()是一种构造Promise的方式，它接受三种不同的参数，分别有不同的行为。</p>
 <ol>
 <li>Promise<br>当传递一个Promise作为参数时，函数将其原样返回。</li>
-<li>non-promise thenable<br>当传递一个thenable作为参数时，Promise会使用then属性代表的函数构造一个promise返回：<br>```javascript<br>let p={<br> then:function(cb,errcb){<pre><code>errcb(&quot;error&quot;);
-</code></pre> }<br>};</li>
-</ol>
-<p>Promise.resolve(p).catch(function(err){<br>    console.log(err);<br>});<br>```上面resolve返回的是一个处于rejected状态的promise。由此可见，Promise.resolve并非总是返回fulfilled promise。但与之对应的Promise.reject函数总是返回rejected promise。</p>
-<ol>
 <li>non-promise,non-thenable<br>当传递一个普通值时，函数返回一个处于fulfilled状态的promise，且值为这个普通值。</li>
+<li>non-promise thenable<br>当传递一个thenable作为参数时，Promise会使用then属性代表的函数构造一个promise返回：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> p=&#123;</div><div class="line">    <span class="attr">then</span>:<span class="function"><span class="keyword">function</span>(<span class="params">cb,errcb</span>)</span>&#123;</div><div class="line">        errcb(<span class="string">"error"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.resolve(p).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>上面resolve返回的是一个处于rejected状态的promise。由此可见，Promise.resolve并非总是返回fulfilled promise。但与之对应的Promise.reject函数总是返回rejected promise。</p>
 <p>Promise构造函数接受的回调函数接受两个参数，resovle和reject。reject会使promise进入rejected，resovle的效果和Promise.resolve函数类似，可以使promise进入fulfilled或rejected。</p>
 
       
