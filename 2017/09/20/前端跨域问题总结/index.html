@@ -1,0 +1,807 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="浏览器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
+<meta name="keywords" content="浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端跨域问题总结">
+<meta property="og:url" content="http://iamzay.github.io/2017/09/20/前端跨域问题总结/index.html">
+<meta property="og:site_name" content="我是郑安源">
+<meta property="og:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
+<meta property="og:updated_time" content="2017-09-20T17:15:46.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端跨域问题总结">
+<meta name="twitter:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://iamzay.github.io/2017/09/20/前端跨域问题总结/"/>
+
+
+
+
+
+  <title>前端跨域问题总结 | 我是郑安源</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是郑安源</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://iamzay.github.io/2017/09/20/前端跨域问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是郑安源">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端跨域问题总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T20:20:11+08:00">
+                2017-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/浏览器/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/20/前端跨域问题总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/20/前端跨域问题总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：</p>
+<ul>
+<li>JSONP</li>
+<li>document.domain</li>
+<li>window.name</li>
+<li>window.postMessage</li>
+<li>websocket</li>
+<li>服务器设置</li>
+</ul>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>html中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的修改这些标签来达到跨域的效果。<br>JSONP的步骤大致是：</p>
+<ul>
+<li>使用JS动态创建一个script标签，设置其src属性为要跨域访问的服务器url，url的末尾加上类似”callback=funcName”的参数</li>
+<li>funcName是全局作用域下的一个函数名</li>
+<li>将script标签append到dom树中，这样会使浏览器发送一个get请求</li>
+<li>服务器接受请求，将funcName从url中取出，并动态生成一个JS脚本（这个JS脚本会使用data去调用funcName，data使服务器端生成的，也是浏览器端所需要的）</li>
+<li>浏览器接受返回的JS脚本并执行之</li>
+</ul>
+<p>下面是JSONP的简易实现：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> JSONP=&#123;</div><div class="line">  rand()&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.random().toString().substr(<span class="number">2</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  parseData(data)&#123;</div><div class="line">    <span class="keyword">let</span> str=<span class="string">""</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(data))&#123;</div><div class="line">      str+=<span class="string">"&amp;"</span>+key+<span class="string">"="</span>+data[key];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/* 加时间戳，防止缓存 */</span></div><div class="line">    str+=<span class="string">"&amp;_time="</span>+<span class="built_in">Date</span>.now();</div><div class="line">    <span class="keyword">return</span> str.substr(<span class="number">1</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  getJSON(url,data,func)&#123;</div><div class="line">    url=url+(url.indexOf(<span class="string">"?"</span>)===<span class="number">-1</span>?<span class="string">"?"</span>:<span class="string">"&amp;"</span>)+<span class="keyword">this</span>.parseData(data);</div><div class="line">    <span class="comment">/* 是否有callback参数 */</span></div><div class="line">    <span class="keyword">let</span> funcName=<span class="string">""</span>;</div><div class="line">    <span class="keyword">let</span> match=<span class="regexp">/callback=(\w+)/i</span>;</div><div class="line">    <span class="keyword">let</span> res=match.exec(url);</div><div class="line">    <span class="keyword">if</span>(res)</div><div class="line">      funcName=res[<span class="number">1</span>];</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">      funcName=<span class="keyword">this</span>.rand();</div><div class="line">      url+=<span class="string">"&amp;callback="</span>+funcName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* 构造script标签 */</span></div><div class="line">    <span class="keyword">let</span> script=documetn.createElement(<span class="string">"script"</span>);</div><div class="line">    script.src=url;</div><div class="line">    script.type=<span class="string">"text/javascript"</span>;</div><div class="line">    script.id=<span class="string">"jsonp"</span>;</div><div class="line">    <span class="built_in">document</span>.body.appendChild(script);</div><div class="line"></div><div class="line">    <span class="comment">/* 构造全局函数funcName */</span></div><div class="line">    <span class="built_in">window</span>[funcName]=<span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;</div><div class="line">      <span class="built_in">window</span>[funcName]=<span class="literal">undefined</span>;</div><div class="line">      <span class="comment">/* 删除script标签 */</span></div><div class="line">      <span class="keyword">let</span> script=<span class="built_in">document</span>.querySelector(<span class="string">"#jsonp"</span>);</div><div class="line">      <span class="keyword">if</span>(script)</div><div class="line">        script.parentNode.removeChild(script);</div><div class="line">      <span class="comment">/* 调用callback */</span></div><div class="line">      func(json);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> data = &#123;</div><div class="line">  <span class="attr">from</span>: <span class="string">"北京"</span>,</div><div class="line">  <span class="attr">count</span>: <span class="number">27</span>,</div><div class="line">  <span class="attr">output</span>: <span class="string">"json"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">JSONP.getJSON(<span class="string">"http://api.com"</span>,data,<span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;<span class="built_in">console</span>.log(json)&#125;);</div></pre></td></tr></table></figure></p>
+<p>JSONP的缺点是只能发送get请求。</p>
+<h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p>假设当前在a.example.com下，我们使用<code>let otherWindow=window.open(&quot;b.example.com&quot;)</code>打开了一个新窗口，能否通过<br><code>otherWindow.document</code>访问到该窗口的document对象呢？答案是不能，因为两者的域名不完全相同，这是一个跨域访问。但因为这<br>两个页面的主域名相同，我们可以通过在两个窗口中设置document.domain相同来突破跨域的限制。步骤如下：</p>
+<ul>
+<li><p>打开源窗口的console输入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.domain=<span class="string">"example.com"</span>;</div><div class="line"><span class="keyword">let</span> otherWindow=<span class="built_in">window</span>.open(<span class="string">"b.example.com"</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开新窗口的console输入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.domain=<span class="string">"example.com"</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>现在我们已经可以在源窗口通过otherWindow访问到document了。这个方法同样对iframe有用，只要在新建的iframe中设置document.domain相同，<br>便可通过iframe的引用访问其contentWindow和contentDocument。</p>
+<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>在同一个标签中跳转网页，window.name是不会改变的。假设页面中内嵌了一个iframe，并且这个iframe设置了window.name，我们该如何取到这个<br>window.name呢？直接通过iframe的引用是无法访问到的，因为跨域了。可以这样做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> iframe=<span class="built_in">document</span>.querySelector(<span class="string">"#iframe"</span>);</div><div class="line"><span class="keyword">let</span> data;</div><div class="line">iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        data = iframe.contentWindow.name;</div><div class="line">    &#125;</div><div class="line">    iframe.src = <span class="string">'about:blank'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这样data就包含了iframe传递的信息，使用window.name这种方法只能传递string值。</p>
+<h2 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h2><p>HTML5新增了window方法postMessage。只要获得了其他window的引用，就可以通过postMessage发送信息或者通过监听事件接受消息。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> windowObj = <span class="built_in">window</span>; <span class="comment">// 可以是其他的 Window 对象的引用</span></div><div class="line"><span class="keyword">var</span> data = <span class="literal">null</span>;</div><div class="line"></div><div class="line">addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(e.origin == <span class="string">'http://jasonkid.github.io/fezone'</span>) &#123;</div><div class="line">        data = e.data;</div><div class="line">        </div><div class="line">        e.source.postMessage(<span class="string">'Got it!'</span>, <span class="string">'*'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h2><h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>若浏览器支持CORS，则只需服务器在响应的头部中设置相应选项，浏览器就会将跨站资源请求视为合法。<br>服务器需设置的头部为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Access-Control-Allow-Origin: &lt;origin&gt; | *</div></pre></td></tr></table></figure></p>
+<p>若要允许浏览器带Cookie访问，需设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Access-Control-Allow-Credentials: true | false</div></pre></td></tr></table></figure></p>
+<p>CORS与JSONP对比：</p>
+<ul>
+<li>JSONP可以在不支持CORS的浏览器中使用</li>
+<li>CORS不仅仅支持get方法</li>
+<li>CORS使用XMLHttpRequest，错误处理方式比JSONP好</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://segmentfault.com/a/1190000003642057" target="_blank" rel="external">https://segmentfault.com/a/1190000003642057</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/科比的黑曼巴精神/" rel="next" title="科比的黑曼巴精神">
+                <i class="fa fa-chevron-left"></i> 科比的黑曼巴精神
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论(需翻墙)</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Zay" />
+          <p class="site-author-name" itemprop="name">Zay</p>
+           
+              <p class="site-description motion-element" itemprop="description">好好生活</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案"><span class="nav-number">2.</span> <span class="nav-text">方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP"><span class="nav-number">2.1.</span> <span class="nav-text">JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document-domain"><span class="nav-number">2.2.</span> <span class="nav-text">document.domain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-name"><span class="nav-number">2.3.</span> <span class="nav-text">window.name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#postMessage"><span class="nav-number">2.4.</span> <span class="nav-text">postMessage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#websocket"><span class="nav-number">2.5.</span> <span class="nav-text">websocket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器设置"><span class="nav-number">2.6.</span> <span class="nav-text">服务器设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反向代理"><span class="nav-number">2.6.1.</span> <span class="nav-text">反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">2.6.2.</span> <span class="nav-text">CORS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zay</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zay-today.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://iamzay.github.io/2017/09/20/前端跨域问题总结/';
+          this.page.identifier = '2017/09/20/前端跨域问题总结/';
+          this.page.title = '前端跨域问题总结';
+        };
+        var disqus = {
+         load : function disqus(){
+        (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'https://zay-today.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+         (document.head || document.body).appendChild(s);
+         }());
+        $('#load-disqus').remove(); ///加载后移除按钮
+  }
+  };
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
