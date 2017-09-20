@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
+<meta name="description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置">
 <meta name="keywords" content="浏览器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端跨域问题总结">
 <meta property="og:url" content="http://iamzay.github.io/2017/09/20/前端跨域问题总结/index.html">
 <meta property="og:site_name" content="我是郑安源">
-<meta property="og:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
-<meta property="og:updated_time" content="2017-09-20T17:15:46.251Z">
+<meta property="og:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置">
+<meta property="og:updated_time" content="2017-09-20T17:17:28.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端跨域问题总结">
-<meta name="twitter:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置  方案JSONPhtml中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的">
+<meta name="twitter:description" content="起因现代浏览器大多遵循同源策略，即不允许一个页面的脚本访问其他页面的数据。实现跨域一般有下面这些方法：  JSONP document.domain window.name window.postMessage websocket 服务器设置">
 
 
 
@@ -390,6 +390,7 @@
 <li>websocket</li>
 <li>服务器设置</li>
 </ul>
+<a id="more"></a>
 <h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>html中的一些标签，如img,script等带有src属性，在src中我们可以填上任何的域名而不会收到同源策略的影响。利用这点，可以动态的修改这些标签来达到跨域的效果。<br>JSONP的步骤大致是：</p>
 <ul>
 <li>使用JS动态创建一个script标签，设置其src属性为要跨域访问的服务器url，url的末尾加上类似”callback=funcName”的参数</li>
